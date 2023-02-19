@@ -4,3 +4,7 @@ tmp/
 
 .vscode
 .drawio
+
+*.fbx
+*.obj
+*.json
