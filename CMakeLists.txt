@@ -79,35 +79,35 @@ set(ASSIMP_NO_EXPORT OFF)
 # GLFLW option setting
 option(GLFW_BUILD_DOCS OFF)
 
-# Add External library
+# Add Externals library
 message(
   "\nGLAD=========================================================================="
 )
-add_subdirectory(External/glad)
+add_subdirectory(Externals/glad)
 message(
   "\nIMGUI========================================================================="
 )
-add_subdirectory(External/imgui)
+add_subdirectory(Externals/imgui)
 message(
   "\nGLFW=========================================================================="
 )
-add_subdirectory(External/glfw)
+add_subdirectory(Externals/glfw)
 message(
   "\nENTT=========================================================================="
 )
-add_subdirectory(External/entt)
+add_subdirectory(Externals/entt)
 message(
   "\nGLM==========================================================================="
 )
-add_subdirectory(External/glm)
+add_subdirectory(Externals/glm)
 message(
   "\nASSIMP========================================================================"
 )
-add_subdirectory(External/assimp)
+add_subdirectory(Externals/assimp)
 message(
   "\nSTB==========================================================================="
 )
-add_library(STB_IMAGE "External/stb/stb_image.cpp")
+add_library(STB_IMAGE "Externals/stb/stb_image.cpp")
 
 # Add main source code
 message(

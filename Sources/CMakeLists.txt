@@ -7,10 +7,10 @@ target_include_directories(
   PUBLIC ./
          ../
          ${CMAKE_HOME_DIRECTORY}/Sources
-         ${CMAKE_HOME_DIRECTORY}/Include/
-         ${CMAKE_HOME_DIRECTORY}/Include/Components
-         ${CMAKE_HOME_DIRECTORY}/External/
-         ${CMAKE_HOME_DIRECTORY}/External/entt/single_include
-         ${CMAKE_HOME_DIRECTORY}/External/glm/
-         ${CMAKE_HOME_DIRECTORY}/External/stb
-         ${CMAKE_HOME_DIRECTORY}/External/assimp)
+         ${CMAKE_HOME_DIRECTORY}/Includes/
+         ${CMAKE_HOME_DIRECTORY}/Includes/Components
+         ${CMAKE_HOME_DIRECTORY}/Externals/
+         ${CMAKE_HOME_DIRECTORY}/Externals/entt/single_include
+         ${CMAKE_HOME_DIRECTORY}/Externals/glm/
+         ${CMAKE_HOME_DIRECTORY}/Externals/stb
+         ${CMAKE_HOME_DIRECTORY}/Externals/assimp)
