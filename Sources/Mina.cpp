@@ -12,7 +12,7 @@ void Mina::init()
 
 void Mina::loop()
 {
-	while (true)
+	// while (true)
 	{
 		preUpdate();
 		render();

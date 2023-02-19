@@ -2,5 +2,9 @@
 #define MINA_COMPONENTS_COMPONENTS_H
 
 #include "components/Transform.h"
+namespace Mina::Components
+{
 
-#endif
+}	 // namespace Mina::Components
+
+#endif	  // MINA_COMPONENTS_COMPONENTS_H

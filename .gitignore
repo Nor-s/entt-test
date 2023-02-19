@@ -3,7 +3,7 @@ tmp/
 .DS_Store
 
 .vscode
-.drawio
+*.drawio
 
 *.fbx
 *.obj
