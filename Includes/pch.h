@@ -26,4 +26,10 @@
 #include <stb/stb_image.h>
 #include <stb/stb_image_write.h>
 
+// glad
+#include <glad/glad.h>
+
+// glfw
+#include <GLFW/glfw3.h>
+
 #endif	  // MINA_PCH_H

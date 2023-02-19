@@ -5,8 +5,13 @@
 
 namespace Mina
 {
+class Window;
 class Mina
 {
+private:
+	[[maybe_unused]] entt::registry& registry;
+	std::unique_ptr<Window> window;
+
 public:
 	Mina() = delete;
 	Mina(const Mina&) = delete;
@@ -14,15 +19,14 @@ public:
 	Mina& operator=(const Mina&) = delete;
 	Mina& operator=(Mina&&) = delete;
 
+	~Mina();
+
 	explicit Mina(entt::registry& registry);
 	void init();
 	void loop();
-	void preUpdate();
+	void preRender();
 	void render();
-	void postUpdate();
-
-private:
-	[[maybe_unused]] entt::registry& registry;
+	void postRender();
 };
 }	 // namespace Mina
 
