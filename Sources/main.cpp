@@ -1,10 +1,11 @@
-#include "Mina.h"
+#include "App.h"
+
+using namespace Mina;
 
 int main()
 {
 	setlocale(LC_ALL, ".utf8");
-	entt::registry registry;
-	Mina::Mina mina = Mina::Mina(registry);
-	mina.init();
-	mina.loop();
+	App& app = App::getInstance();
+	app.init();
+	app.loop();
 }

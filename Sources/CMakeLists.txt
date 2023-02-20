@@ -1,5 +1,6 @@
-set(EDITOR_SRC Editor/Window.cpp Editor/Platform/GlfwGLWindow.cpp)
-set(EXE_SRC main.cpp Mina.cpp)
+set(EDITOR_SRC Editor/Window.cpp Editor/Platform/GlfwGLWindow.cpp
+               Editor/Editor.cpp)
+set(EXE_SRC main.cpp App.cpp)
 add_executable(Mina ${EXE_SRC} ${EDITOR_SRC})
 target_compile_options(Mina PRIVATE -Wall -Werror -std=c++17)
 target_link_libraries(
@@ -9,6 +10,7 @@ target_link_libraries(
   assimp::assimp
   STB_IMAGE
   glfw
+  imgui
   glad)
 target_include_directories(
   Mina

@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "pch.hpp"
 
 #include "Editor/Platform/GlfwGLWindow.h"
 
@@ -40,6 +40,13 @@ void GlfwGLWindow::init()
 	{
 		throw std::runtime_error("Failed to initialize GLAD");
 	}
+
+	glfwSwapInterval(0);
+}
+
+void* GlfwGLWindow::getHandle()
+{
+	return static_cast<void*>(window);
 }
 
 bool GlfwGLWindow::shouldClose()

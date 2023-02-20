@@ -1,7 +1,7 @@
 #ifndef MINA_EDITOR_WINDOW_H
 #define MINA_EDITOR_WINDOW_H
 
-#include "../pch.h"
+#include "../pch.hpp"
 
 namespace Mina
 {
@@ -31,6 +31,7 @@ public:
 
 	virtual ~Window();
 
+	virtual inline void* getHandle() = 0;
 	virtual inline void init() = 0;
 	virtual inline bool shouldClose() = 0;
 	virtual inline void processEvents() = 0;
