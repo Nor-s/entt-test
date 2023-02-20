@@ -1,4 +1,0 @@
-#ifndef MINA_COMPONENTS_MESH_H
-#define MINA_COMPONENTS_MESH_H
-
-#endif

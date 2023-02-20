@@ -1,7 +1,7 @@
-#ifndef MINA_COMPONENTS_TRANSFORM_H
-#define MINA_COMPONENTS_TRANSFORM_H
+#ifndef MINA_COMPONENTS_TRANSFORM_HPP
+#define MINA_COMPONENTS_TRANSFORM_HPP
 
-#include "../pch.h"
+#include "../pch.hpp"
 
 namespace Mina::Component
 {

@@ -1,7 +1,7 @@
-#ifndef MINA_COMPONENTS_LOG_H
-#define MINA_COMPONENTS_LOG_H
+#ifndef MINA_COMPONENTS_LOG_HPP
+#define MINA_COMPONENTS_LOG_HPP
 
-#include "../pch.h"
+#include "../pch.hpp"
 
 namespace Mina::Components
 {
