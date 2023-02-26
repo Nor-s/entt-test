@@ -5,6 +5,8 @@
 
 #include "Commons/Logger.h"
 
+#include "Helpers/Render/RenderHelpers.hpp"
+
 namespace Mina
 {
 

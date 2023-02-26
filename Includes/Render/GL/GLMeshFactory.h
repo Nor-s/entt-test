@@ -9,7 +9,11 @@ namespace Mina::GL
 // Singleton
 class GLMeshFactory : public MeshFactory
 {
+private:
 public:
+	GLMeshFactory();
+	~GLMeshFactory();
+
 	std::unique_ptr<Mesh> create(std::vector<Vertex>&& vertices,
 								 std::vector<uint32_t>&& indices,
 								 std::vector<Texture>&& textures,

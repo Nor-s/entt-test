@@ -1,5 +1,5 @@
-#ifndef MINA_COMPONENTS_RENDER_MESHCOMPONENT_HPP
-#define MINA_COMPONENTS_RENDER_MESHCOMPONENT_HPP
+#ifndef MINA_RENDER_RENDERAPI_H
+#define MINA_RENDER_RENDERAPI_H
 
 #include "../pch.hpp"
 
@@ -9,11 +9,11 @@ namespace Mina
 class RenderAPI
 {
 private:
-	// static std::unique_ptr<RenderAPI> instance = nullptr;
+	static std::unique_ptr<RenderAPI> instance;
 
 	std::unique_ptr<class MeshFactory> meshFactory{};
-	std::unique_ptr<class FramebufferFactory> framebufferFactory{};
-	std::unique_ptr<class Render> render{};
+	// std::unique_ptr<class FramebufferFactory> framebufferFactory{};
+	// std::unique_ptr<class Render> render{};
 
 	RenderAPI();
 
@@ -25,7 +25,9 @@ public:
 
 	~RenderAPI();
 
-	static RenderAPI& getInstance();
+	static RenderAPI& get();
+
+	class MeshFactory& getMeshFactory();
 };
 
 }	 // namespace Mina

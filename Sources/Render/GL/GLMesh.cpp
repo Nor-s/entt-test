@@ -1,16 +1,21 @@
 #include "pch.hpp"
+#include "Render/GL/GLShader.h"
 #include "Render/GL/GLMesh.h"
 
 namespace Mina::GL
 {
 
-GLMesh::GLMesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices, std::vector<Texture>&& textures, Material&& mat)
+GLMesh::GLMesh(std::vector<Vertex>&& vertices,
+			   std::vector<uint32_t>&& indices,
+			   std::vector<Texture>&& textures,
+			   Material&& mat)
 	: Mesh(std::move(vertices), std::move(indices), std::move(textures), std::move(mat))
 {
 	initBuffer();
 }
 
-GLMesh::GLMesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices) : Mesh(std::move(vertices), std::move(indices))
+GLMesh::GLMesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices)
+	: Mesh(std::move(vertices), std::move(indices))
 {
 	initBuffer();
 }
@@ -66,6 +71,57 @@ GLMesh::~GLMesh()
 	glDeleteVertexArrays(1, &buffers.VAO);
 	glDeleteBuffers(1, &buffers.VBO);
 	glDeleteBuffers(1, &buffers.EBO);
+}
+
+void GLMesh::draw(Shader& shader)
+{
+	// set material
+	{
+		GlUniformVec3(shader, "material.ambient", material.ambient);
+		GlUniformVec3(shader, "material.diffuse", material.diffuse);
+		GlUniformVec3(shader, "material.specular", material.specular);
+		GlUniformFloat(shader, "material.shininess", material.shininess);
+		GlUniformBool(shader, "material.hasDiffuseTexture", material.hasDiffuseTexture);
+	}
+
+	// bind texture
+	char diffuseNr = '1', specularNr = '1', normalNr = '1', heightNr = '1';
+	{
+		for (uint32_t i = 0; i < textures.size(); i++)
+		{
+			std::string name = textures[i].type;
+
+			if (name == "textureDiffuse")
+				name.push_back(diffuseNr++);
+			else if (name == "textureSpecular")
+				name.push_back(specularNr++);
+			else if (name == "textureNormal")
+				name.push_back(normalNr++);
+			else if (name == "textureHeight")
+				name.push_back(heightNr++);
+
+			glActiveTexture(GL_TEXTURE0 + i);
+
+			GlUniformInt(shader, name.c_str(), i);
+			glBindTexture(GL_TEXTURE_2D, textures[i].handle);
+		}
+	}
+
+	// draw mesh
+	{
+		glBindVertexArray(buffers.VAO);
+		if (indices.size() > 0)
+		{
+			glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+		}
+		else
+		{
+			glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+		}
+		glBindVertexArray(0);
+	}
+
+	glActiveTexture(GL_TEXTURE0);
 }
 
 }	 // namespace Mina::GL

@@ -32,7 +32,7 @@ struct Material
 	glm::vec3 diffuse{1.0f, 1.0f, 1.0f};
 	glm::vec3 specular{0.9f, 0.9f, 0.9f};
 	float shininess{1.0f};
-
+	bool hasDiffuseTexture{false};
 	// const std::function<void(class Shader& shader)> updateToGPU{nullptr};
 };
 
@@ -43,17 +43,19 @@ protected:
 	std::vector<uint32_t> indices{};
 	std::vector<Texture> textures{};
 	Material material{};
-	[[maybe_unused]] bool hasDiffuseTexture{false};
 
 protected:
-	Mesh(std::vector<Vertex>&& _vertices, std::vector<uint32_t>&& _indices, std::vector<Texture>&& _textures, Material&& _mat);
+	Mesh(std::vector<Vertex>&& _vertices,
+		 std::vector<uint32_t>&& _indices,
+		 std::vector<Texture>&& _textures,
+		 Material&& _mat);
 	Mesh(std::vector<Vertex>&& _vertices, std::vector<uint32_t>&& _indices);
 	Mesh(std::vector<Vertex>&& _vertices);
 
 public:
 	virtual ~Mesh() = default;
 
-	void draw(class Shader& shader);
+	virtual void draw(class Shader& shader) = 0;
 };
 
 }	 // namespace Mina

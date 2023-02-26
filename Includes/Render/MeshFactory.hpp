@@ -11,6 +11,9 @@ class MeshFactory
 {
 private:
 public:
+	MeshFactory() = default;
+	virtual ~MeshFactory() = default;
+
 	virtual std::unique_ptr<Mesh> create(std::vector<Vertex>&& vertices,
 										 std::vector<uint32_t>&& indices,
 										 std::vector<Texture>&& textures,

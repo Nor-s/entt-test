@@ -3,12 +3,17 @@
 
 namespace Mina::GL
 {
+
+GLMeshFactory::GLMeshFactory() = default;
+GLMeshFactory::~GLMeshFactory() = default;
+
 std::unique_ptr<Mesh> GLMeshFactory::create(std::vector<Vertex>&& vertices,
 											std::vector<uint32_t>&& indices,
 											std::vector<Texture>&& textures,
 											Material&& mat)
 {
-	return std::unique_ptr<Mesh>(new GLMesh(std::move(vertices), std::move(indices), std::move(textures), std::move(mat)));
+	return std::unique_ptr<Mesh>(
+		new GLMesh(std::move(vertices), std::move(indices), std::move(textures), std::move(mat)));
 }
 
 std::unique_ptr<Mesh> GLMeshFactory::create(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices)

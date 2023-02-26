@@ -5,9 +5,10 @@ set(EDITOR_SRC
     ${CMAKE_HOME_DIRECTORY}/Sources/Editor/Editor.cpp)
 
 set(RENDER_SRC
-    ${CMAKE_HOME_DIRECTORY}/Sources/Render/GL/GLShader.cpp
+    ${CMAKE_HOME_DIRECTORY}/Sources/Render/RenderAPI.cpp
     ${CMAKE_HOME_DIRECTORY}/Sources/Render/Mesh.cpp
     ${CMAKE_HOME_DIRECTORY}/Sources/Render/GL/GLMesh.cpp
+    ${CMAKE_HOME_DIRECTORY}/Sources/Render/GL/GLShader.cpp
     ${CMAKE_HOME_DIRECTORY}/Sources/Render/GL/GLMeshFactory.cpp
     ${CMAKE_HOME_DIRECTORY}/Sources/Render/GL/GLShader.cpp)
 
