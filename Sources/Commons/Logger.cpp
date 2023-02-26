@@ -1,9 +1,11 @@
 #include "Commons/Logger.h"
 
 #ifndef NDEBUG
+
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #define SPDLOG_DEBUG_ON
 #define SPDLOG_TRACE_ON
+
 namespace Mina
 {
 std::unique_ptr<Logger> Logger::instance(new Logger());
@@ -23,6 +25,7 @@ Logger::Logger()
 	logger->set_level(spdlog::level::trace);
 	logger->flush_on(spdlog::level::trace);
 }
+
 Logger::~Logger() = default;
 
 std::shared_ptr<spdlog::logger>& Logger::get()
@@ -31,4 +34,5 @@ std::shared_ptr<spdlog::logger>& Logger::get()
 }
 
 }	 // namespace Mina
+
 #endif
