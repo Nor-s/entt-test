@@ -8,3 +8,7 @@ tmp/
 *.fbx
 *.obj
 *.json
+
+*_tmp.png
+
+*.log

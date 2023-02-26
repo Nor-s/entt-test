@@ -1,14 +1,14 @@
 #ifndef MINA_COMPONENTS_TRANSFORM_HPP
 #define MINA_COMPONENTS_TRANSFORM_HPP
 
-#include "../pch.hpp"
+#include "pch.hpp"
 
-namespace Mina::Component
+namespace Mina
 {
 struct Transform
 {
 	glm::mat4 mat;
 };
-}	 // namespace Mina::Component
+}	 // namespace Mina
 
 #endif

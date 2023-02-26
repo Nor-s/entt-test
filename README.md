@@ -31,3 +31,8 @@ ecs를 적용한 간단한 애니메이션 에디터
 -   bone 렌더링
     - 인스턴스 렌더링 적용
 -   imgui
+
+## **Reference or Use**
+
+- Logger class: https://github.com/TheCherno/Hazel/blob/master/Hazel/src/Hazel/Core/Log.cpp
+    - Apache-2.0 License

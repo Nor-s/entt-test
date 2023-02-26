@@ -3,7 +3,7 @@
 
 #include <entt/entt.hpp>
 
-namespace Mina::Tags
+namespace Mina::Tag
 {
 using namespace entt::literals;
 
@@ -20,6 +20,6 @@ using HUD = entt::tag<"hud"_hs>;
 // Event Tags
 using Inputs = entt::tag<"inputs"_hs>;
 
-}	 // namespace Mina::Tags
+}	 // namespace Mina::Tag
 
 #endif	  // MINA_COMMONS_TAGS_HPP
