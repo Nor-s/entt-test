@@ -8,7 +8,7 @@ namespace Mina
 class Editor
 {
 private:
-	class Window& window;
+	const class Window& window;
 
 public:
 	Editor() = delete;

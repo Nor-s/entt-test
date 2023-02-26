@@ -37,6 +37,22 @@ if(APPLE)
   endif()
 endif()
 
+# include
+include_directories(
+  ../
+  ${CMAKE_HOME_DIRECTORY}
+  ${CMAKE_HOME_DIRECTORY}/Sources
+  ${CMAKE_HOME_DIRECTORY}/Includes/
+  ${CMAKE_HOME_DIRECTORY}/Includes/Helpers/
+  ${CMAKE_HOME_DIRECTORY}/Includes/Editor/
+  ${CMAKE_HOME_DIRECTORY}/Includes/Components/
+  ${CMAKE_HOME_DIRECTORY}/Externals/
+  ${CMAKE_HOME_DIRECTORY}/Externals/entt/single_include
+  ${CMAKE_HOME_DIRECTORY}/Externals/entt/
+  ${CMAKE_HOME_DIRECTORY}/Externals/glm/
+  ${CMAKE_HOME_DIRECTORY}/Externals/stb
+  ${CMAKE_HOME_DIRECTORY}/Externals/assimp)
+
 # for output directory
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -110,6 +126,10 @@ message(
   "\nSTB==========================================================================="
 )
 add_library(STB_IMAGE "Externals/stb/stb_image.cpp")
+message(
+  "\nSPDLOG========================================================================"
+)
+add_subdirectory(Externals/spdlog)
 
 # Add main source code
 message(

@@ -34,6 +34,7 @@ void GlfwGLWindow::init()
 		throw std::runtime_error("GLFW failed to create window");
 	}
 	glfwMakeContextCurrent(window);
+
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
@@ -44,7 +45,7 @@ void GlfwGLWindow::init()
 	glfwSwapInterval(0);
 }
 
-void* GlfwGLWindow::getHandle()
+void* GlfwGLWindow::getHandle() const
 {
 	return static_cast<void*>(window);
 }

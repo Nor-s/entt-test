@@ -21,7 +21,7 @@ public:
 
 	virtual ~GlfwGLWindow();
 
-	inline void* getHandle() override;
+	inline void* getHandle() const override;
 	inline void init() override;
 	inline bool shouldClose() override;
 	inline void processEvents() override;

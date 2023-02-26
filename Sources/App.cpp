@@ -3,6 +3,8 @@
 #include "Editor/Editor.h"
 #include "Editor/Platform/GlfwGLWindow.h"
 
+#include "Commons/Logger.h"
+
 namespace Mina
 {
 
@@ -20,14 +22,19 @@ App& App::getInstance()
 
 void App::init()
 {
+	MINA_LOG("Initializing Mina");
+
 	window = std::make_unique<GlfwGLWindow>(WindowContext{500, 500, "Mina"});
 	window->init();
+
 	editor = std::make_unique<Editor>(*window);
 	editor->init();
 }
 
 void App::loop()
 {
+	MINA_LOG("Starting main loop");
+
 	while (!window->shouldClose())
 	{
 		preRender();

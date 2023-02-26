@@ -31,7 +31,7 @@ public:
 
 	virtual ~Window();
 
-	virtual inline void* getHandle() = 0;
+	virtual inline void* getHandle() const = 0;
 	virtual inline void init() = 0;
 	virtual inline bool shouldClose() = 0;
 	virtual inline void processEvents() = 0;
