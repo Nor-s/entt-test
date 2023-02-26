@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <tuple>
 
 // Entt
 #include <entt/entt.hpp>
@@ -15,10 +16,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // Assimp
 #include <assimp/scene.h>
-
+#include <assimp/postprocess.h>
+#include <assimp/quaternion.h>
 #include <assimp/Exporter.hpp>
 #include <assimp/Importer.hpp>
 
