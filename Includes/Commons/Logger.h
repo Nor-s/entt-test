@@ -3,11 +3,10 @@
 
 #include "pch.hpp"
 
-#ifndef NDEBUG
-
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #define SPDLOG_DEBUG_ON
 #define SPDLOG_TRACE_ON
+
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
@@ -36,11 +35,4 @@ public:
 #define MINA_LOG(...) SPDLOG_LOGGER_TRACE(::Mina::Logger::get(), __VA_ARGS__)
 #define MINA_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(::Mina::Logger::get(), __VA_ARGS__)
 
-#else
-#define MINA_LOG(...)
-#define MINA_ERROR(...)
-#define MINA_WARN(...)
-#define MINA_TRACE(...)
-#define MINA_CRITICAL(...)
-#endif	  // NDEBUG
 #endif	  // MINA_COMMONS_LOGGER_H

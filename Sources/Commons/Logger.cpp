@@ -1,7 +1,5 @@
 #include "Commons/Logger.h"
 
-#ifndef NDEBUG
-
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #define SPDLOG_DEBUG_ON
 #define SPDLOG_TRACE_ON
@@ -34,5 +32,3 @@ std::shared_ptr<spdlog::logger>& Logger::get()
 }
 
 }	 // namespace Mina
-
-#endif

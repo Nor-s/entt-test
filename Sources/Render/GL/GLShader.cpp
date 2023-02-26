@@ -4,12 +4,30 @@
 namespace Mina::GL
 {
 
-GLShader::GLShader(const char* vertex_path, const char* fragment_path, const char* geometry_path)
+GLShader::GLShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
 {
+	handle = glCreateProgram();
+
+	bool vertValid{false}, fragValid{false}, geometryValid{false};
+	GLuint vert{}, frag{}, geometry{};
+	{
+		vert = compile(vertexPath, vertValid, GL_VERTEX_SHADER);
+		frag = compile(fragmentPath, fragValid, GL_FRAGMENT_SHADER);
+		geometry = compile(geometryPath, geometryValid, GL_GEOMETRY_SHADER);
+		glAttachShader(handle, geometry);
+	}
+
+	glLinkProgram(handle);
+	checkLink(handle);
+
+	deleteShader(vert, vertValid);
+	deleteShader(frag, fragValid);
+	deleteShader(geometry, geometryValid);
 }
 
 GLShader::~GLShader()
 {
+	glDeleteProgram(handle);
 }
 
 void GLShader::bind()
@@ -22,10 +40,63 @@ void GLShader::unbind()
 	glUseProgram(0);
 }
 
+GLuint GLShader::compile(const char* path, bool& isValid, GLenum type)
+{
+	if (path == nullptr)
+	{
+		isValid = false;
+		return 0;
+	}
+
+	MINA_LOG("Compiling shader: {}", path);
+
+	std::string code;
+	std::ifstream file;
+
+	file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	try
+	{
+		std::stringstream shader_stream;
+
+		file.open(path);
+		shader_stream << file.rdbuf();
+		file.close();
+
+		code = shader_stream.str();
+	}
+	catch (std::ifstream::failure& e)
+	{
+		MINA_CRITICAL("Failed to read shader file: {}", path);
+	}
+
+	const char* shader_code = code.c_str();
+
+	GLuint shader = glCreateShader(type);
+	glShaderSource(shader, 1, &shader_code, NULL);
+	glCompileShader(shader);
+
+	isValid = checkCompile(shader);
+	if (isValid)
+	{
+		glAttachShader(handle, shader);
+	}
+
+	return shader;
+}
+
+void GLShader::deleteShader(GLuint shader, bool isValid)
+{
+	if (isValid)
+	{
+		glDeleteShader(shader);
+	}
+}
+
 bool GLShader::checkLink(GLuint shader)
 {
 	GLint success;
 	GLchar info_log[1024];
+
 	glGetProgramiv(shader, GL_LINK_STATUS, &success);
 	if (!success)
 	{
@@ -33,6 +104,7 @@ bool GLShader::checkLink(GLuint shader)
 		MINA_ERROR("PROGRAM_LINKING : {}", info_log);
 		return false;
 	}
+
 	return true;
 }
 
@@ -40,6 +112,7 @@ bool GLShader::checkCompile(GLuint shader)
 {
 	GLint success;
 	GLchar info_log[1024];
+
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
@@ -47,6 +120,7 @@ bool GLShader::checkCompile(GLuint shader)
 		MINA_ERROR("PROGRAM_COMPILE : {}", info_log);
 		return false;
 	}
+
 	return true;
 }
 

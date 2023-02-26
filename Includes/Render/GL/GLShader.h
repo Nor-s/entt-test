@@ -17,6 +17,8 @@ public:
 	void unbind() override;
 
 private:
+	GLuint compile(const char* path, bool& isValid, GLenum type);
+	void deleteShader(GLuint shader, bool isValid);
 	bool checkLink(GLuint shader);
 	bool checkCompile(GLuint shader);
 };
