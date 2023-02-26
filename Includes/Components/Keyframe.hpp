@@ -1,11 +1,10 @@
 #ifndef MINA_COMPONENTS_KEYFRAME_HPP
 #define MINA_COMPONENTS_KEYFRAME_HPP
 
-#include "../pch.hpp"
-
 #include "Transform.hpp"
+#include "../Commons/KeySet.hpp"
 
-namespace Mina::Component
+namespace Mina
 {
 struct KeyPosition
 {
@@ -31,6 +30,6 @@ struct Keyframes
 	KeySet<KeyRotation> rotations;
 	KeySet<KeyScale> scales;
 };
-}	 // namespace Mina::Component
+}	 // namespace Mina
 
 #endif
