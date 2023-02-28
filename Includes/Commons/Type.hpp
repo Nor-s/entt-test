@@ -8,10 +8,26 @@ namespace Mina
 using time_t = double;
 
 #ifdef USE_OPENGL
+
 using ShaderHandle = unsigned int;
+using FramebufferHandle = unsigned int;
+using DepthBufferHandle = unsigned int;
+using TextureHandle = unsigned int;
+
 #else
+
 using ShaderHandle = VkPipeline;
-#endif
+using FramebufferHandle = unsigned int;
+using DepthBufferHandle = unsigned int;
+using TextureHandle = unsigned int;
+
+#endif	  // USE_OPENGL
+
+struct MSize
+{
+	int width{};
+	int height{};
+};
 
 }	 // namespace Mina
 
