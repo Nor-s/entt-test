@@ -12,3 +12,6 @@ tmp/
 *_tmp.png
 
 *.log
+*.idea
+.idea/
+cmake-build-debug/
