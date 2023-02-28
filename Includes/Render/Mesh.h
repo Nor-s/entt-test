@@ -2,10 +2,12 @@
 #define MINA_COMPONENTS_RENDER_MESH_H
 
 #include "pch.hpp"
-#include "Commons/Constants.hpp"
+#include "../Commons/Constants.hpp"
+#include "Texture.h"
 
 namespace Mina
 {
+class Shader;
 
 struct Vertex
 {
@@ -17,13 +19,6 @@ struct Vertex
 
 	int boneIds[MAX_BONE_INFLUENCE];
 	float weights[MAX_BONE_INFLUENCE];
-};
-
-struct Texture
-{
-	uint32_t handle{};
-	std::string type{""};
-	std::string path{""};
 };
 
 struct Material
@@ -41,21 +36,21 @@ class Mesh
 protected:
 	std::vector<Vertex> vertices{};
 	std::vector<uint32_t> indices{};
-	std::vector<Texture> textures{};
+	std::vector<std::unique_ptr<Texture>> textures{};
 	Material material{};
 
 protected:
 	Mesh(std::vector<Vertex>&& _vertices,
 		 std::vector<uint32_t>&& _indices,
-		 std::vector<Texture>&& _textures,
-		 Material&& _mat);
+		 std::vector<std::unique_ptr<Texture>>&& _textures,
+		 Material& _mat);
 	Mesh(std::vector<Vertex>&& _vertices, std::vector<uint32_t>&& _indices);
 	Mesh(std::vector<Vertex>&& _vertices);
 
 public:
 	virtual ~Mesh() = default;
 
-	virtual void draw(class Shader& shader) = 0;
+	virtual void draw(Shader& shader) = 0;
 };
 
 }	 // namespace Mina

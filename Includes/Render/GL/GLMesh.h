@@ -1,5 +1,5 @@
-#ifndef MINA_RENDER_GL_GLMESH_H
-#define MINA_RENDER_GL_GLMESH_H
+#ifndef MINA_RENDER_GL_GL_MESH_H
+#define MINA_RENDER_GL_GL_MESH_H
 
 #include "../Mesh.h"
 #include "GLBuffers.hpp"
@@ -16,9 +16,13 @@ private:
 	GLVertexBuffers buffers{};
 
 private:
-	GLMesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices, std::vector<Texture>&& textures, Material&& mat);
+	GLMesh(std::vector<Vertex>&& vertices,
+		   std::vector<uint32_t>&& indices,
+		   std::vector<std::unique_ptr<Texture>>&& textures,
+		   Material& mat);
+
 	GLMesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices);
-	GLMesh(std::vector<Vertex>&& vertices);
+	explicit GLMesh(std::vector<Vertex>&& vertices);
 
 	void initBuffer();
 
@@ -26,15 +30,16 @@ public:
 	GLMesh() = delete;
 	GLMesh(const GLMesh&) = delete;
 	GLMesh(GLMesh&&) = delete;
+
 	GLMesh& operator=(const GLMesh&) = delete;
 	GLMesh& operator=(GLMesh&&) = delete;
 
-	~GLMesh();
+	~GLMesh() override;
 
 	/**
-	 * Maybe Error when eache texture size >= 10
+	 * Maybe Error when each texture size >= 10
 	 */
-	void draw(class Shader& shader) override;
+	void draw(Shader& shader) override;
 };
 
 }	 // namespace Mina::GL

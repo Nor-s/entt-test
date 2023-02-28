@@ -7,9 +7,9 @@ namespace Mina::GL
 
 GLMesh::GLMesh(std::vector<Vertex>&& vertices,
 			   std::vector<uint32_t>&& indices,
-			   std::vector<Texture>&& textures,
-			   Material&& mat)
-	: Mesh(std::move(vertices), std::move(indices), std::move(textures), std::move(mat))
+			   std::vector<std::unique_ptr<Texture>>&& textures,
+			   Material& mat)
+	: Mesh(std::move(vertices), std::move(indices), std::move(textures), mat)
 {
 	initBuffer();
 }
@@ -33,12 +33,14 @@ void GLMesh::initBuffer()
 	glBindVertexArray(buffers.VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, buffers.VBO);
 
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-	if (indices.size() > 0)
+	glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(vertices.size() * sizeof(Vertex)), &vertices[0],
+				 GL_STATIC_DRAW);
+	if (!indices.empty())
 	{
 		glGenBuffers(1, &buffers.EBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers.EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indices.size() * sizeof(unsigned int)),
+					 &indices[0], GL_STATIC_DRAW);
 	}
 
 	glEnableVertexAttribArray(0);
@@ -54,7 +56,7 @@ void GLMesh::initBuffer()
 	// vertex tangent
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, tangent));
-	// vertex bitangent
+	// vertex biTangent
 	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, bitangent));
 	// ids
@@ -87,9 +89,10 @@ void GLMesh::draw(Shader& shader)
 	// bind texture
 	char diffuseNr = '1', specularNr = '1', normalNr = '1', heightNr = '1';
 	{
-		for (uint32_t i = 0; i < textures.size(); i++)
+		int size = static_cast<int>(textures.size());
+		for (int i = 0; i < size; i++)
 		{
-			std::string name = textures[i].type;
+			std::string name = textures[i]->getType();
 
 			if (name == "textureDiffuse")
 				name.push_back(diffuseNr++);
@@ -103,20 +106,20 @@ void GLMesh::draw(Shader& shader)
 			glActiveTexture(GL_TEXTURE0 + i);
 
 			GlUniformInt(shader, name.c_str(), i);
-			glBindTexture(GL_TEXTURE_2D, textures[i].handle);
+			glBindTexture(GL_TEXTURE_2D, *textures[i]);
 		}
 	}
 
 	// draw mesh
 	{
 		glBindVertexArray(buffers.VAO);
-		if (indices.size() > 0)
+		if (!indices.empty())
 		{
-			glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
 		}
 		else
 		{
-			glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+			glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(vertices.size()));
 		}
 		glBindVertexArray(0);
 	}

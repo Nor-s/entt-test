@@ -16,8 +16,8 @@ public:
 
 	virtual std::unique_ptr<Mesh> create(std::vector<Vertex>&& vertices,
 										 std::vector<uint32_t>&& indices,
-										 std::vector<Texture>&& textures,
-										 Material&& mat) = 0;
+										 std::vector<std::unique_ptr<Texture>>&& textures,
+										 Material& mat) = 0;
 
 	virtual std::unique_ptr<Mesh> create(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices) = 0;
 

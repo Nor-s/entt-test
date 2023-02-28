@@ -3,19 +3,17 @@
 
 #include "pch.hpp"
 
+#include "../Commons/Type.hpp"
 #include "Mesh.h"
+#include "Texture.h"
 
 namespace Mina
 {
+using FramebufferTextureFormat = TextureFormat;
 
-enum class FramebufferTextureFormat
+enum class DepthFormat
 {
-	None = 0,
-	// Color
-	RGBA8,
-	RGB,
-	RED_INTEGER,
-
+	NONE = 0,
 	// Depth/stencil
 	DEPTH24STENCIL8,
 
@@ -23,46 +21,68 @@ enum class FramebufferTextureFormat
 	Depth = DEPTH24STENCIL8
 };
 
-struct FramebufferTextureSpec
-{
-	FramebufferTextureSpec() = delete;
-	FramebufferTextureSpec(FramebufferTextureFormat format) : textureFormat(format)
-	{
-	}
-	FramebufferTextureFormat textureFormat{FramebufferTextureFormat::None};
-};
-
 struct FramebufferSpec
 {
 	FramebufferSpec() = delete;
-	FramebufferSpec(uint32_t w,
-					uint32_t h,
-					uint32_t msaaSamples,
-					std::initializer_list<FramebufferTextureSpec> colorAttachmentsSpec,
-					FramebufferTextureSpec depthAttachmentSpec = FramebufferTextureFormat::None)
-		: width(w), height(h), samples(msaaSamples), colorAttachments(colorAttachmentsSpec), depthAttachment(depthAttachmentSpec)
+	FramebufferSpec(MSize _size,
+					std::initializer_list<FramebufferTextureFormat> colors,
+					DepthFormat depthAttachmentSpec = DepthFormat::NONE)
+		: size(_size), colorAttachments(colors), depthAttachment(depthAttachmentSpec)
 	{
 	}
 
-	uint32_t width{}, height{};
-	std::vector<FramebufferTextureSpec> colorAttachments{};
-	FramebufferTextureSpec depthAttachment{FramebufferTextureFormat::None};
+	MSize size;
 	uint32_t samples{1};
+	std::vector<FramebufferTextureFormat> colorAttachments{};
+	DepthFormat depthAttachment{DepthFormat::NONE};
 };
 
 class Framebuffer
 {
-private:
-	uint32_t handle;
-	std::vector<Texture> colors;
-	uint32_t depth;
+protected:
+	FramebufferSpec spec;
+	FramebufferHandle handle{};
+	std::vector<std::unique_ptr<Texture>> colors;
+	DepthBufferHandle depth{};
+
+protected:
+	Framebuffer() : spec({{1, 1}, {}})
+	{
+	}
+
+	//	void initColorAttachment(std::vector<Texture> colors) = 0;
 
 public:
+	Framebuffer(const Framebuffer&) = delete;
+	Framebuffer(Framebuffer&&) = delete;
+
+	Framebuffer& operator=(const Framebuffer&) = delete;
+	Framebuffer& operator=(Framebuffer&&) = delete;
+
+	virtual ~Framebuffer() = default;
+
 	virtual void bind() = 0;
-	virtual void draw() = 0;
 	virtual void unbind() = 0;
-	virtual uint32_t getHandle() = 0;
-	virtual Texture getColorTexture(int idx) = 0;
+
+	explicit operator const FramebufferHandle&() const
+	{
+		return handle;
+	}
+
+	Texture& getColorTexture(int idx)
+	{
+		return *colors[idx];
+	}
+
+	FramebufferHandle& getHandle()
+	{
+		return handle;
+	}
+
+	FramebufferSpec& getSpec()
+	{
+		return spec;
+	}
 };
 }	 // namespace Mina
 
