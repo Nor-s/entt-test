@@ -9,6 +9,7 @@
 
 namespace Mina
 {
+
 using FramebufferTextureFormat = TextureFormat;
 
 enum class DepthFormat
@@ -32,7 +33,7 @@ struct FramebufferSpec
 	}
 
 	MSize size;
-	uint32_t samples{1};
+	uint32_t multiSampleNum{1};
 	std::vector<FramebufferTextureFormat> colorAttachments{};
 	DepthFormat depthAttachment{DepthFormat::NONE};
 };
@@ -50,7 +51,22 @@ protected:
 	{
 	}
 
-	//	void initColorAttachment(std::vector<Texture> colors) = 0;
+	/**
+	 * @pre need bind before call this
+	 */
+	virtual void initColorAttachment(std::vector<std::unique_ptr<Texture>>&& colorTextures) = 0;
+
+	/**
+	 * @pre need bind before call this
+	 */
+	virtual void addColorAttachment(std::unique_ptr<Texture> colorTexture) = 0;
+
+	/**
+	 * @return old DepthAttachment
+	 */
+	virtual DepthBufferHandle changeDepthAttachment(DepthBufferHandle depthBuffer) = 0;
+
+	virtual bool checkStatus() = 0;
 
 public:
 	Framebuffer(const Framebuffer&) = delete;
@@ -64,13 +80,15 @@ public:
 	virtual void bind() = 0;
 	virtual void unbind() = 0;
 
-	explicit operator const FramebufferHandle&() const
+	operator const FramebufferHandle&() const
 	{
 		return handle;
 	}
 
 	Texture& getColorTexture(int idx)
 	{
+		assert(idx < colors.size());
+
 		return *colors[idx];
 	}
 
@@ -84,6 +102,7 @@ public:
 		return spec;
 	}
 };
+
 }	 // namespace Mina
 
 #endif

@@ -21,17 +21,17 @@ protected:
 	/**
 	 * for render texture
 	 */
-	explicit GLTexture(const MSize& _size, TextureFormat _format = TextureFormat::RGBA8, int _multiSample = 1);
+	explicit GLTexture(const MSize& textureSize, TextureFormat colorFormat = TextureFormat::RGBA8, int sampleNum = 1);
 
 	/**
 	 * for file texture
 	 */
-	explicit GLTexture(const std::string& _path, TextureFormat _format = TextureFormat::NONE);
+	explicit GLTexture(const std::string& filepath, TextureFormat colorFormat = TextureFormat::NONE);
 
 	/**
 	 * for embeded texture
 	 */
-	GLTexture(unsigned char* data, const MSize& size);
+	GLTexture(unsigned char* data, const MSize& textureSize);
 
 public:
 	GLTexture() = delete;

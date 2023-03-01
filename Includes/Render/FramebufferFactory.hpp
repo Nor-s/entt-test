@@ -9,6 +9,7 @@ namespace Mina
 
 class FramebufferFactory
 {
+public:
 	virtual std::unique_ptr<Framebuffer> create(FramebufferSpec&& spec) = 0;
 };
 

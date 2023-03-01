@@ -2,7 +2,8 @@
 
 namespace Mina
 {
-Texture::Texture(std::string _path, const TextureFormat& _format) : path(std::move(_path)), format(_format)
+Texture::Texture(std::string filepath, const TextureFormat& colorFormat)
+	: path(std::move(filepath)), format(colorFormat)
 {
 }
 Texture::Texture() = default;
@@ -26,6 +27,11 @@ Texture::~Texture() = default;
 [[nodiscard]] TextureFormat Texture::getFormat() const
 {
 	return format;
+}
+
+[[nodiscard]] int Texture::getMultiSampleNum() const
+{
+	return multiSample;
 }
 
 }	 // namespace Mina

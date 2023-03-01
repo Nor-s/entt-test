@@ -37,7 +37,7 @@ protected:
 	int multiSample{1};
 
 protected:
-	explicit Texture(std::string _path, const TextureFormat& _format = TextureFormat::NONE);
+	explicit Texture(std::string filepath, const TextureFormat& colorFormat = TextureFormat::NONE);
 	Texture();
 
 public:
@@ -55,6 +55,7 @@ public:
 	[[nodiscard]] const std::string& getType() const;
 	[[nodiscard]] const std::string& getPath() const;
 	[[nodiscard]] TextureFormat getFormat() const;
+	[[nodiscard]] int getMultiSampleNum() const;
 };
 
 }	 // namespace Mina

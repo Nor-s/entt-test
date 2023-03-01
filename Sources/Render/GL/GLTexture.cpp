@@ -88,13 +88,13 @@ inline TextureFormat GetFormat(int channels)
 	return TextureFormat::NONE;
 }
 
-GLTexture::GLTexture(const MSize& _size, TextureFormat _format, int _multiSample)
+GLTexture::GLTexture(const MSize& textureSize, TextureFormat colorFormat, int sampleNum)
 {
-	MINA_LOG("Texture size: {}, {}", _size.width, _size.height);
+	MINA_LOG("Texture size: {}, {}", textureSize.width, textureSize.height);
 
-	size = _size;
-	format = _format;
-	multiSample = _multiSample;
+	size = textureSize;
+	format = colorFormat;
+	multiSample = sampleNum;
 	target = GetTextureTarget(multiSample);
 
 	glGenTextures(1, &handle);
@@ -104,9 +104,9 @@ GLTexture::GLTexture(const MSize& _size, TextureFormat _format, int _multiSample
 	glBindTexture(target, 0);
 }
 
-GLTexture::GLTexture(const std::string& _path, TextureFormat _format) : Texture(_path, _format)
+GLTexture::GLTexture(const std::string& filepath, TextureFormat colorFormat) : Texture(filepath, colorFormat)
 {
-	MINA_LOG("Texture path: {}", _path);
+	MINA_LOG("Texture path: {}", filepath);
 
 	glGenTextures(1, &handle);
 	glBindTexture(target, handle);
@@ -117,9 +117,9 @@ GLTexture::GLTexture(const std::string& _path, TextureFormat _format) : Texture(
 	{
 		format = GetFormat(channels);
 
-		if (_format != TextureFormat::NONE)
+		if (colorFormat != TextureFormat::NONE)
 		{
-			format = _format;
+			format = colorFormat;
 		}
 		setTexImage2D(data);
 	}
@@ -133,7 +133,7 @@ GLTexture::GLTexture(const std::string& _path, TextureFormat _format) : Texture(
 	glBindTexture(target, 0);
 }
 
-GLTexture::GLTexture(unsigned char* data, const MSize& _size)
+GLTexture::GLTexture(unsigned char* data, const MSize& textureSize)
 {
 	MINA_LOG("Texture Load Memory");
 
@@ -144,13 +144,14 @@ GLTexture::GLTexture(unsigned char* data, const MSize& _size)
 	int channels{};
 	if (size.height == 0)
 	{
-		imageData = stbi_load_from_memory(reinterpret_cast<unsigned char*>(data), _size.width, &size.width,
+		imageData = stbi_load_from_memory(reinterpret_cast<unsigned char*>(data), textureSize.width, &size.width,
 										  &size.height, &channels, 0);
 	}
 	else
 	{
-		imageData = stbi_load_from_memory(reinterpret_cast<unsigned char*>(data), _size.width * _size.height,
-										  &size.width, &size.height, &channels, 0);
+		imageData =
+			stbi_load_from_memory(reinterpret_cast<unsigned char*>(data), textureSize.width * textureSize.height,
+								  &size.width, &size.height, &channels, 0);
 	}
 
 	format = GetFormat(channels);
