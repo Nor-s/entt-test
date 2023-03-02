@@ -22,7 +22,11 @@ set(EXE_SRC main.cpp App.cpp)
 
 add_executable(Mina ${EXE_SRC} ${EDITOR_SRC} ${HELPER_SRC} ${RENDER_SRC}
                     ${COMMON_SRC})
-target_compile_options(Mina PRIVATE -Wall -Werror -std=c++17)
+if(MSVC)
+    target_compile_options(Mina PRIVATE "/utf-8")
+else()
+    target_compile_options(Mina PRIVATE -Wall -Werror -std=c++17)
+endif()
 target_link_libraries(
   Mina
   EnTT::EnTT

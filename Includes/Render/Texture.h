@@ -13,11 +13,11 @@ namespace Mina
 
 enum class TextureFormat
 {
-	NONE = 0,
+	None = 0,
 	RGBA8,
 	RGB,
 	RED_INTEGER,
-	ERROR
+	Error
 };
 
 class TextureFactory;
@@ -37,7 +37,7 @@ protected:
 	int multiSample{1};
 
 protected:
-	explicit Texture(std::string filepath, const TextureFormat& colorFormat = TextureFormat::NONE);
+	explicit Texture(std::string filepath, const TextureFormat& colorFormat = TextureFormat::None);
 	Texture();
 
 public:

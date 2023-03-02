@@ -16,7 +16,7 @@ GLenum ConvertFormat(TextureFormat format)
 {
 	switch (format)
 	{
-		case TextureFormat::NONE:
+		case TextureFormat::None:
 			return GL_NONE;
 		case TextureFormat::RGBA8:
 			return GL_RGBA;
@@ -33,7 +33,7 @@ GLenum ConvertInternalFormat(TextureFormat format)
 {
 	switch (format)
 	{
-		case TextureFormat::NONE:
+		case TextureFormat::None:
 			return GL_NONE;
 		case TextureFormat::RGBA8:
 			return GL_RGBA8;
@@ -85,7 +85,7 @@ inline TextureFormat GetFormat(int channels)
 	else if (channels == 4)
 		return TextureFormat::RGBA8;
 
-	return TextureFormat::NONE;
+	return TextureFormat::None;
 }
 
 GLTexture::GLTexture(const MSize& textureSize, TextureFormat colorFormat, int sampleNum)
@@ -117,7 +117,7 @@ GLTexture::GLTexture(const std::string& filepath, TextureFormat colorFormat) : T
 	{
 		format = GetFormat(channels);
 
-		if (colorFormat != TextureFormat::NONE)
+		if (colorFormat != TextureFormat::None)
 		{
 			format = colorFormat;
 		}
@@ -126,7 +126,7 @@ GLTexture::GLTexture(const std::string& filepath, TextureFormat colorFormat) : T
 	else
 	{
 		MINA_CRITICAL("Texture failed to load at path: {}", path);
-		format = TextureFormat::ERROR;
+		format = TextureFormat::Error;
 	}
 
 	stbi_image_free(data);
@@ -185,10 +185,10 @@ GLTexture::~GLTexture()
 {
 	MINA_LOG("Texture Destroyed: {} {}", handle, path);
 
-	if (format != TextureFormat::ERROR && format != TextureFormat::NONE)
+	if (format != TextureFormat::Error && format != TextureFormat::None)
 	{
 		glDeleteTextures(1, &handle);
-		format = TextureFormat::NONE;
+		format = TextureFormat::None;
 		size = {0, 0};
 		type = {};
 		path = {};

@@ -129,7 +129,7 @@ void Editor::drawMenuBar()
 
 		// This is not the "immediate/current" framerate,
 		// it is the rolling average framerate over the last 120 frames.
-		ImGui::Text("fps: %.2f", ImGui::GetIO().Framerate);
+		ImGui::Text("미나 fps: %.2f", ImGui::GetIO().Framerate);
 		ImGui::EndMenuBar();
 	}
 }

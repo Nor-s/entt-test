@@ -26,7 +26,7 @@ protected:
 	/**
 	 * for file texture
 	 */
-	explicit GLTexture(const std::string& filepath, TextureFormat colorFormat = TextureFormat::NONE);
+	explicit GLTexture(const std::string& filepath, TextureFormat colorFormat = TextureFormat::None);
 
 	/**
 	 * for embeded texture
