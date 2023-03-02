@@ -26,6 +26,7 @@ struct Material
 	glm::vec3 ambient{0.8f, 0.8f, 0.8f};
 	glm::vec3 diffuse{1.0f, 1.0f, 1.0f};
 	glm::vec3 specular{0.9f, 0.9f, 0.9f};
+
 	float shininess{1.0f};
 	bool hasDiffuseTexture{false};
 	// const std::function<void(class Shader& shader)> updateToGPU{nullptr};

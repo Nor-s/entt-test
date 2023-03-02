@@ -12,8 +12,8 @@ private:
 	static std::unique_ptr<RenderAPI> instance;
 
 	std::unique_ptr<class MeshFactory> meshFactory{};
-	// std::unique_ptr<class FramebufferFactory> framebufferFactory{};
-	// std::unique_ptr<class Render> render{};
+	std::unique_ptr<class FramebufferFactory> framebufferFactory{};
+	//	std::unique_ptr<class Render> render{};
 
 	RenderAPI();
 
@@ -28,6 +28,7 @@ public:
 	static RenderAPI& get();
 
 	class MeshFactory& getMeshFactory();
+	class FramebufferFactory& getFramebufferFactory();
 };
 
 }	 // namespace Mina

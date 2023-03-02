@@ -87,26 +87,15 @@ void GLMesh::draw(Shader& shader)
 	}
 
 	// bind texture
-	char diffuseNr = '1', specularNr = '1', normalNr = '1', heightNr = '1';
 	{
 		int size = static_cast<int>(textures.size());
 		for (int i = 0; i < size; i++)
 		{
 			std::string name = textures[i]->getType();
 
-			if (name == "textureDiffuse")
-				name.push_back(diffuseNr++);
-			else if (name == "textureSpecular")
-				name.push_back(specularNr++);
-			else if (name == "textureNormal")
-				name.push_back(normalNr++);
-			else if (name == "textureHeight")
-				name.push_back(heightNr++);
-
 			glActiveTexture(GL_TEXTURE0 + i);
-
 			GlUniformInt(shader, name.c_str(), i);
-			glBindTexture(GL_TEXTURE_2D, *textures[i]);
+			textures[i]->bind();
 		}
 	}
 

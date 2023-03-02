@@ -25,7 +25,7 @@ DepthBufferHandle CreateDepthBuffer(const MSize& size, DepthFormat format, int m
 	return depthBuffer;
 }
 
-std::unique_ptr<Framebuffer> GLFramebufferFactory::create(FramebufferSpec&& spec)
+std::unique_ptr<Framebuffer> GLFramebufferFactory::create(const FramebufferSpec& spec)
 {
 	auto framebuffer = std::unique_ptr<GLFramebuffer>(new GLFramebuffer());
 

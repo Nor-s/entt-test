@@ -1,20 +1,15 @@
-#ifndef MINA_RENDER_RENDER_H
-#define MINA_RENDER_RENDER_H
-
-#include "pch.hpp"
+#ifndef MINA_RENDER_RENDER_HPP
+#define MINA_RENDER_RENDER_HPP
 
 namespace Mina
 {
 class Render
 {
-private:
-	std::unique_ptr<class Framebuffer> framebuffer;
-
-public:
-	virtual void begin() = 0;
-	virtual void end() = 0;
-	virtual Framebuffer& getFramebuffer() const = 0;
+	virtual void basicDraw(class Shader& shader, class Mesh& mesh) = 0;
+	virtual void instancedDraw(class Shader& shader, class Mesh& mesh) = 0;
+	virtual void stencilDraw(class Shader& shader, class Mesh& mesh) = 0;
 };
+
 }	 // namespace Mina
 
 #endif

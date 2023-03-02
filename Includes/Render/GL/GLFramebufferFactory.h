@@ -9,7 +9,7 @@ namespace Mina::GL
 class GLFramebufferFactory : public FramebufferFactory
 {
 public:
-	std::unique_ptr<Framebuffer> create(FramebufferSpec&& spec) override;
+	std::unique_ptr<Framebuffer> create(const FramebufferSpec& spec) override;
 };
 
 }	 // namespace Mina::GL

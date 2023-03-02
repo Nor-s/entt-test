@@ -10,7 +10,10 @@ namespace Mina
 class FramebufferFactory
 {
 public:
-	virtual std::unique_ptr<Framebuffer> create(FramebufferSpec&& spec) = 0;
+	FramebufferFactory() = default;
+	virtual ~FramebufferFactory() = default;
+
+	virtual std::unique_ptr<Framebuffer> create(const FramebufferSpec& spec) = 0;
 };
 
 }	 // namespace Mina

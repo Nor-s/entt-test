@@ -35,6 +35,7 @@ protected:
 
 public:
 	~GLFramebuffer();
+
 	void bind() override;
 	void unbind() override;
 };
