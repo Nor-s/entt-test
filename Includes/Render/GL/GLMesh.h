@@ -35,11 +35,6 @@ public:
 	GLMesh& operator=(GLMesh&&) = delete;
 
 	~GLMesh() override;
-
-	/**
-	 * Maybe Error when each texture size >= 10
-	 */
-	void draw(Shader& shader) override;
 };
 
 }	 // namespace Mina::GL

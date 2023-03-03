@@ -66,6 +66,8 @@ void GLMesh::initBuffer()
 	glEnableVertexAttribArray(6);
 	glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, weights));
 	glBindVertexArray(0);
+
+	handle = buffers.VAO;
 }
 
 GLMesh::~GLMesh()
@@ -73,47 +75,6 @@ GLMesh::~GLMesh()
 	glDeleteVertexArrays(1, &buffers.VAO);
 	glDeleteBuffers(1, &buffers.VBO);
 	glDeleteBuffers(1, &buffers.EBO);
-}
-
-void GLMesh::draw(Shader& shader)
-{
-	// set material
-	{
-		GlUniformVec3(shader, "material.ambient", material.ambient);
-		GlUniformVec3(shader, "material.diffuse", material.diffuse);
-		GlUniformVec3(shader, "material.specular", material.specular);
-		GlUniformFloat(shader, "material.shininess", material.shininess);
-		GlUniformBool(shader, "material.hasDiffuseTexture", material.hasDiffuseTexture);
-	}
-
-	// bind texture
-	{
-		int size = static_cast<int>(textures.size());
-		for (int i = 0; i < size; i++)
-		{
-			std::string name = textures[i]->getType();
-
-			glActiveTexture(GL_TEXTURE0 + i);
-			GlUniformInt(shader, name.c_str(), i);
-			textures[i]->bind();
-		}
-	}
-
-	// draw mesh
-	{
-		glBindVertexArray(buffers.VAO);
-		if (!indices.empty())
-		{
-			glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
-		}
-		else
-		{
-			glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(vertices.size()));
-		}
-		glBindVertexArray(0);
-	}
-
-	glActiveTexture(GL_TEXTURE0);
 }
 
 }	 // namespace Mina::GL

@@ -3,6 +3,7 @@
 
 #include "pch.hpp"
 #include "../Commons/Constants.hpp"
+#include "../Commons/Type.hpp"
 #include "Texture.h"
 
 namespace Mina
@@ -35,6 +36,7 @@ struct Material
 class Mesh
 {
 protected:
+	MeshHandle handle;
 	std::vector<Vertex> vertices{};
 	std::vector<uint32_t> indices{};
 	std::vector<std::unique_ptr<Texture>> textures{};
@@ -51,7 +53,15 @@ protected:
 public:
 	virtual ~Mesh() = default;
 
-	virtual void draw(Shader& shader) = 0;
+	operator const MeshHandle&() const
+	{
+		return handle;
+	}
+
+	const Material& getMaterial() const;
+	const std::vector<Vertex>& getVertices() const;
+	const std::vector<uint32_t>& getIndices() const;
+	const std::vector<std::unique_ptr<Texture>>& getTextures() const;
 };
 
 }	 // namespace Mina

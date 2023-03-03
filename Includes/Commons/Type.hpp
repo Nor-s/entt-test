@@ -13,6 +13,7 @@ using ShaderHandle = unsigned int;
 using FramebufferHandle = unsigned int;
 using DepthBufferHandle = unsigned int;
 using TextureHandle = unsigned int;
+using MeshHandle = unsigned int;
 
 #else
 
@@ -20,6 +21,7 @@ using ShaderHandle = VkPipeline;
 using FramebufferHandle = unsigned int;
 using DepthBufferHandle = unsigned int;
 using TextureHandle = unsigned int;
+using MeshHandle = unsigned int;
 
 #endif	  // USE_OPENGL
 
