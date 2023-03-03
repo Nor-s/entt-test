@@ -2,15 +2,16 @@
 #define MINA_RENDER_RENDERAPI_H
 
 #include "../pch.hpp"
+#include "Commons/Singleton.hpp"
 
 namespace Mina
 {
 
-class RenderAPI
+class RenderAPI : public Singleton<RenderAPI>
 {
-private:
-	static std::unique_ptr<RenderAPI> instance;
+	friend class Singleton<RenderAPI>;
 
+private:
 	std::unique_ptr<class MeshFactory> meshFactory{};
 	std::unique_ptr<class FramebufferFactory> framebufferFactory{};
 	//	std::unique_ptr<class Render> render{};
@@ -20,15 +21,14 @@ private:
 public:
 	RenderAPI(const RenderAPI&) = delete;
 	RenderAPI(RenderAPI&&) = delete;
+
 	RenderAPI& operator=(const RenderAPI&) = delete;
 	RenderAPI& operator=(RenderAPI&&) = delete;
 
 	~RenderAPI();
 
-	static RenderAPI& get();
-
-	class MeshFactory& getMeshFactory();
-	class FramebufferFactory& getFramebufferFactory();
+	class MeshFactory& getMeshFactory() const;
+	class FramebufferFactory& getFramebufferFactory() const;
 };
 
 }	 // namespace Mina

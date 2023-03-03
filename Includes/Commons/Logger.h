@@ -2,6 +2,7 @@
 #define MINA_COMMONS_LOGGER_H
 
 #include "pch.hpp"
+#include "Singleton.hpp"
 
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #define SPDLOG_DEBUG_ON
@@ -13,26 +14,40 @@
 
 namespace Mina
 {
-class Logger
+class Logger : public Singleton<Logger>
 {
+	friend class Singleton<Logger>;
+
 private:
-	static std::unique_ptr<Logger> instance;
-	static std::shared_ptr<spdlog::logger> logger;
+	std::shared_ptr<spdlog::logger> logger;
 
 	Logger();
 
 public:
-	~Logger();
-
-	static std::shared_ptr<spdlog::logger>& get();
+	~Logger() = default;
+	const std::shared_ptr<spdlog::logger>& getLogger() const;
 };
 
 }	 // namespace Mina
 
-#define MINA_INFO(...) SPDLOG_LOGGER_INFO(::Mina::Logger::get(), __VA_ARGS__)
-#define MINA_ERROR(...) SPDLOG_LOGGER_ERROR(::Mina::Logger::get(), __VA_ARGS__)
-#define MINA_WARN(...) SPDLOG_LOGGER_WARN(::Mina::Logger::get(), __VA_ARGS__)
-#define MINA_LOG(...) SPDLOG_LOGGER_TRACE(::Mina::Logger::get(), __VA_ARGS__)
-#define MINA_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(::Mina::Logger::get(), __VA_ARGS__)
+#define MINA_INFO(...) SPDLOG_LOGGER_INFO(::Mina::Logger::get().getLogger(), __VA_ARGS__)
+#define MINA_ERROR(...) SPDLOG_LOGGER_ERROR(::Mina::Logger::get().getLogger(), __VA_ARGS__)
+#define MINA_WARN(...) SPDLOG_LOGGER_WARN(::Mina::Logger::get().getLogger(), __VA_ARGS__)
+#define MINA_LOG(...) SPDLOG_LOGGER_TRACE(::Mina::Logger::get().getLogger(), __VA_ARGS__)
+#define MINA_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(::Mina::Logger::get().getLogger(), __VA_ARGS__)
+
+// https://github.com/ocornut/imgui/blob/bfce7750b168b5a857b4379596236dda7b58bd39/backends/imgui_impl_opengl3.cpp#L187
+#ifndef NDEBUG
+#define GL_CALL(_CALL)                                                      \
+	do                                                                      \
+	{                                                                       \
+		_CALL;                                                              \
+		GLenum gl_err = glGetError();                                       \
+		if (gl_err != 0)                                                    \
+			MINA_CRITICAL("GL error {} returned from {}.", gl_err, #_CALL); \
+	} while (0)	   // Call with error check
+#else
+#define GL_CALL(_CALL) _CALL	// Call without error check
+#endif
 
 #endif	  // MINA_COMMONS_LOGGER_H

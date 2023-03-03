@@ -6,8 +6,6 @@
 
 namespace Mina
 {
-std::unique_ptr<Logger> Logger::instance(new Logger());
-std::shared_ptr<spdlog::logger> Logger::logger{};
 
 Logger::Logger()
 {
@@ -23,10 +21,7 @@ Logger::Logger()
 	logger->set_level(spdlog::level::trace);
 	logger->flush_on(spdlog::level::trace);
 }
-
-Logger::~Logger() = default;
-
-std::shared_ptr<spdlog::logger>& Logger::get()
+const std::shared_ptr<spdlog::logger>& Logger::getLogger() const
 {
 	return logger;
 }

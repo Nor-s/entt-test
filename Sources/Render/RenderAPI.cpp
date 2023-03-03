@@ -13,29 +13,20 @@
 namespace Mina
 {
 
-std::unique_ptr<RenderAPI> RenderAPI::instance(new RenderAPI());
-
 RenderAPI::RenderAPI()
 {
 	meshFactory = std::make_unique<GL::GLMeshFactory>();
 	framebufferFactory = std::make_unique<GL::GLFramebufferFactory>();
 }
 
-RenderAPI::~RenderAPI()
-{
-}
+RenderAPI::~RenderAPI() = default;
 
-RenderAPI& RenderAPI::get()
-{
-	return *instance;
-}
-
-MeshFactory& RenderAPI::getMeshFactory()
+MeshFactory& RenderAPI::getMeshFactory() const
 {
 	return *meshFactory;
 }
 
-FramebufferFactory& RenderAPI::getFramebufferFactory()
+FramebufferFactory& RenderAPI::getFramebufferFactory() const
 {
 	return *framebufferFactory;
 }

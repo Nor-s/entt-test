@@ -55,6 +55,8 @@ void App::preRender()
 
 void App::render()
 {
+	// scene->render();
+	// editor->render();
 }
 
 void App::postRender()

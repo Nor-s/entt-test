@@ -2,11 +2,14 @@
 #define MINA_MINA_H
 
 #include "pch.hpp"
+#include "Commons/Singleton.hpp"
 
 namespace Mina
 {
-class App
+class App : public Singleton<App>
 {
+	friend class Singleton<App>;
+
 private:
 	std::unique_ptr<class Window> window;
 	std::unique_ptr<class Editor> editor;
