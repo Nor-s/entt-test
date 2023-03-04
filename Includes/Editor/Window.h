@@ -27,7 +27,7 @@ public:
 	Window& operator=(const Window&) = delete;
 	Window& operator=(Window&&) = delete;
 
-	explicit Window(const WindowContext& c);
+	explicit Window(WindowContext  c);
 
 	virtual ~Window();
 
