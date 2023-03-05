@@ -1,20 +1,21 @@
 #include "Render/GL/GLDrawCommand.h"
-#include "Render/Shader.hpp"
+#include "Render/Shader.h"
 #include "Render/Mesh.h"
 
 #include "Render/GL/GLShader.h"
 #include "Render/GL/GLMesh.h"
+#include "Commons/Logger.h"
 
 namespace Mina::GL
 {
 
 void SetMaterial(Shader& shader, const Material& material)
 {
-	GlUniformVec3(shader, "material.ambient", material.ambient);
-	GlUniformVec3(shader, "material.diffuse", material.diffuse);
-	GlUniformVec3(shader, "material.specular", material.specular);
-	GlUniformFloat(shader, "material.shininess", material.shininess);
-	GlUniformBool(shader, "material.hasDiffuseTexture", material.hasDiffuseTexture);
+	GL_CALL(GlUniformVec3(shader, "material.ambient", material.ambient));
+	GL_CALL(GlUniformVec3(shader, "material.diffuse", material.diffuse));
+	GL_CALL(GlUniformVec3(shader, "material.specular", material.specular));
+	GL_CALL(GlUniformFloat(shader, "material.shininess", material.shininess));
+	GL_CALL(GlUniformBool(shader, "material.hasDiffuseTexture", material.hasDiffuseTexture));
 }
 
 void BindTexture(Shader& shader, const std::vector<std::unique_ptr<Texture>>& textures)
@@ -24,11 +25,12 @@ void BindTexture(Shader& shader, const std::vector<std::unique_ptr<Texture>>& te
 	{
 		std::string name = textures[i]->getType();
 
-		glActiveTexture(GL_TEXTURE0 + i);
+		GL_CALL(glActiveTexture(GL_TEXTURE0 + i));
 		GlUniformInt(shader, name.c_str(), i);
 		textures[i]->bind();
 	}
 }
+
 void DrawMesh(Shader& shader, const Mesh& mesh) {
 	const auto&  material = mesh.getMaterial();
 	const auto&  textures = mesh.getTextures();
@@ -40,17 +42,17 @@ void DrawMesh(Shader& shader, const Mesh& mesh) {
 	// draw mesh
 	{
 		const MeshHandle& meshHandle = mesh;
-		glBindVertexArray(meshHandle);
+		GL_CALL(glBindVertexArray(meshHandle));
 		if (!indices.empty())
 		{
-			glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
+			GL_CALL(glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0));
 		}
 		else
 		{
 			auto& vertices = mesh.getVertices();
-			glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(vertices.size()));
+			GL_CALL(glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(vertices.size())));
 		}
-		glBindVertexArray(0);
+		GL_CALL(glBindVertexArray(0));
 	}
 
 	glActiveTexture(GL_TEXTURE0);

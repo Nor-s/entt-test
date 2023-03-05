@@ -1,7 +1,7 @@
 #ifndef MINA_RENDER_GL_GLSHADER_H
 #define MINA_RENDER_GL_GLSHADER_H
 
-#include "../Shader.hpp"
+#include "Render/Shader.h"
 
 namespace Mina::GL
 {

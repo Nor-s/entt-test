@@ -1,7 +1,7 @@
 #include "Render/RenderAPI.h"
 #include "Render/MeshFactory.hpp"
 #include "Render/FramebufferFactory.hpp"
-#include "Render/Shader.hpp"
+#include "Render/Shader.h"
 
 #ifdef USE_OPENGL
 #include "Render/GL/GLMeshFactory.h"

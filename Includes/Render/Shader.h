@@ -13,12 +13,12 @@ protected:
 	ShaderHandle handle;
 
 public:
-	Shader() = default;
-	virtual ~Shader() = default;
+	Shader();
+	virtual ~Shader();
 	virtual void bind() = 0;
 	virtual void unbind() = 0;
 
-	const ShaderHandle& getHandle() const
+	[[nodiscard]] const ShaderHandle& getHandle() const
 	{
 		return handle;
 	}

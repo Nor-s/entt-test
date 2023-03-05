@@ -34,7 +34,7 @@ void Editor::init()
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		style.WindowPadding.x = 3.0f;
 		style.WindowPadding.y = 3.0f;
-		style.FramePadding.y = 1.0f;
+		style.FramePadding.y = 2.0f;
 	}
 
 	io.Fonts->AddFontFromFileTTF("./Resources/Font/D2Coding.ttf", 16.0f, NULL, io.Fonts->GetGlyphRangesKorean());

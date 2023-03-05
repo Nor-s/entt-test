@@ -17,7 +17,7 @@ public:
 	GlfwGLWindow& operator=(const GlfwGLWindow&) = delete;
 	GlfwGLWindow& operator=(GlfwGLWindow&&) = delete;
 
-	GlfwGLWindow(const WindowContext& c);
+	explicit GlfwGLWindow(const WindowContext& c);
 
 	~GlfwGLWindow();
 

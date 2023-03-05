@@ -16,10 +16,10 @@ set(RENDER_SRC
         Render/GL/GLFramebufferFactory.cpp
         Render/GL/GLShader.cpp
         Render/GL/GLTexture.cpp
-        Render/GL/GLTextureFactory.cpp)
+        Render/GL/GLTextureFactory.cpp Render/Shader.cpp)
 
 set(HELPER_SRC Helpers/Resources/ModelImporter.cpp
-        Helpers/Resources/ModelExporter.cpp)
+        Helpers/Resources/ModelExporter.cpp Helpers/Render/RenderHelper.cpp)
 
 set(SYSTEM_SRC
         Systems/RenderSystem.cpp

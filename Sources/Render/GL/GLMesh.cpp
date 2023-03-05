@@ -2,6 +2,8 @@
 #include "Render/GL/GLShader.h"
 #include "Render/GL/GLMesh.h"
 
+#include "Commons/Logger.h"
+
 namespace Mina::GL
 {
 
@@ -11,60 +13,63 @@ GLMesh::GLMesh(std::vector<Vertex>&& vertices,
 			   Material& mat)
 	: Mesh(std::move(vertices), std::move(indices), std::move(textures), mat)
 {
+	MINA_LOG("Creating GLMesh with {} vertices and {} indices", vertices.size(), indices.size());
 	initBuffer();
 }
 
 GLMesh::GLMesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices)
 	: Mesh(std::move(vertices), std::move(indices))
 {
+	MINA_LOG("Creating GLMesh with {} vertices and {} indices", vertices.size(), indices.size());
 	initBuffer();
 }
 
 GLMesh::GLMesh(std::vector<Vertex>&& vertices) : Mesh(std::move(vertices))
 {
+	MINA_LOG("Creating GLMesh with {} vertices", vertices.size());
 	initBuffer();
 }
 
 void GLMesh::initBuffer()
 {
-	glGenVertexArrays(1, &buffers.VAO);
-	glGenBuffers(1, &buffers.VBO);
+	GL_CALL(glGenVertexArrays(1, &buffers.VAO));
+	GL_CALL(glGenBuffers(1, &buffers.VBO));
 
-	glBindVertexArray(buffers.VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, buffers.VBO);
+	GL_CALL(glBindVertexArray(buffers.VAO));
+	GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, buffers.VBO));
 
-	glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(vertices.size() * sizeof(Vertex)), &vertices[0],
-				 GL_STATIC_DRAW);
+	GL_CALL(glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(vertices.size() * sizeof(Vertex)), &vertices[0],
+				 GL_STATIC_DRAW));
 	if (!indices.empty())
 	{
-		glGenBuffers(1, &buffers.EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers.EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indices.size() * sizeof(unsigned int)),
-					 &indices[0], GL_STATIC_DRAW);
+		GL_CALL(glGenBuffers(1, &buffers.EBO));
+		GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers.EBO));
+		GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indices.size() * sizeof(unsigned int)),
+					 &indices[0], GL_STATIC_DRAW));
 	}
 
 	glEnableVertexAttribArray(0);
 	// vertex position
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) 0);
+	GL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) 0));
 	// vertex normals
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, normal));
+	GL_CALL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, normal)));
 	// vertex texture coords
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, texCoords));
+	GL_CALL(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, texCoords)));
 
 	// vertex tangent
 	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, tangent));
+	GL_CALL(glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, tangent)));
 	// vertex biTangent
 	glEnableVertexAttribArray(4);
-	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, bitangent));
+	GL_CALL(glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, bitangent)));
 	// ids
 	glEnableVertexAttribArray(5);
-	glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*) offsetof(Vertex, boneIds));
+	GL_CALL(glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*) offsetof(Vertex, boneIds)));
 	// weights
 	glEnableVertexAttribArray(6);
-	glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, weights));
+	GL_CALL(glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, weights)));
 	glBindVertexArray(0);
 
 	handle = buffers.VAO;
@@ -72,9 +77,9 @@ void GLMesh::initBuffer()
 
 GLMesh::~GLMesh()
 {
-	glDeleteVertexArrays(1, &buffers.VAO);
-	glDeleteBuffers(1, &buffers.VBO);
-	glDeleteBuffers(1, &buffers.EBO);
+	GL_CALL(glDeleteVertexArrays(1, &buffers.VAO));
+	GL_CALL(glDeleteBuffers(1, &buffers.VBO));
+	GL_CALL(glDeleteBuffers(1, &buffers.EBO));
 }
 
 }	 // namespace Mina::GL

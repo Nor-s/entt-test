@@ -6,6 +6,8 @@
 #include "Render/Scene.h"
 #include "Render/Framebuffer.hpp"
 
+#include "Commons/Logger.h"
+
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <imgui/imgui_internal.h>
 
@@ -30,15 +32,14 @@ void SceneLayer::processMouseEvent(ImGuiWindowFlags& windowFlags)
 	//		ui_context.scene.x = x;
 	//		ui_context.scene.y = y;
 	//	}
-	//	is_hovered_ = !ImGuizmo::IsUsing() && ImGui::IsWindowFocused() && ImGui::IsWindowHovered() &&
+	//	is_hovered_ = !ImGuizmo::IsUsing() && ImGui::IsWindowHovered() &&
 	// ImGui::IsMouseHoveringRect(window->InnerRect.Min, window->InnerRect.Max);
-	windowFlags =
-		ImGui::IsMouseHoveringRect(window->InnerRect.Min, window->InnerRect.Max)
-			? ImGuiWindowFlags_NoMove
-			: 0;
+	windowFlags = !ImGui::IsWindowDocked() && ImGui::IsMouseHoveringRect(window->InnerRect.Min, window->InnerRect.Max)
+					  ? ImGuiWindowFlags_NoMove
+					  : 0;
 }
 
-void DrawScene(const Framebuffer& framebuffer,const ImVec2& size)
+void DrawScene(const Framebuffer& framebuffer, const ImVec2& size)
 {
 	void* texture = reinterpret_cast<void*>(static_cast<intptr_t>(framebuffer.getColorTexture(0).getHandle()));
 	ImGui::Image(texture, size, ImVec2{0, 1}, ImVec2{1, 0});

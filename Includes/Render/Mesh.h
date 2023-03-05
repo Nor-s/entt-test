@@ -25,7 +25,7 @@ struct Vertex
 struct Material
 {
 	glm::vec3 ambient{0.8f, 0.8f, 0.8f};
-	glm::vec3 diffuse{1.0f, 1.0f, 1.0f};
+	glm::vec3 diffuse{0.6f, 0.4f, 0.2f};
 	glm::vec3 specular{0.9f, 0.9f, 0.9f};
 
 	float shininess{1.0f};

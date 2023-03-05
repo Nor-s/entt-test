@@ -80,24 +80,24 @@ public:
 	virtual void unbind() = 0;
 	virtual void resize(const MSize& size) = 0;
 
-	operator const FramebufferHandle&() const
+	explicit operator const FramebufferHandle&() const
 	{
 		return handle;
 	}
 
-	const Texture& getColorTexture(int idx) const
+	[[nodiscard]] const Texture& getColorTexture(int idx) const
 	{
 		assert(idx < colors.size());
 
 		return *colors[idx];
 	}
 
-	const FramebufferHandle& getHandle() const
+	[[nodiscard]] const FramebufferHandle& getHandle() const
 	{
 		return handle;
 	}
 
-	const FramebufferSpec& getSpec() const
+	[[nodiscard]] const FramebufferSpec& getSpec() const
 	{
 		return spec;
 	}

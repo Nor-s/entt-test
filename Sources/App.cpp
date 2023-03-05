@@ -11,7 +11,7 @@
 #include "Render/Framebuffer.hpp"
 #include "Render/FramebufferFactory.hpp"
 
-#include "Helpers/Render/RenderHelpers.hpp"
+#include "Helpers/Render/RenderHelper.h"
 
 #include "Systems/RenderSystem.h"
 

@@ -6,7 +6,7 @@ namespace Mina::GL
 
 GLShader::GLShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath)
 {
-	handle = glCreateProgram();
+	GL_CALL(handle = glCreateProgram());
 
 	bool vertValid{false}, fragValid{false}, geometryValid{false};
 	GLuint vert{}, frag{}, geometry{};
@@ -14,10 +14,9 @@ GLShader::GLShader(const char* vertexPath, const char* fragmentPath, const char*
 		vert = compile(vertexPath, vertValid, GL_VERTEX_SHADER);
 		frag = compile(fragmentPath, fragValid, GL_FRAGMENT_SHADER);
 		geometry = compile(geometryPath, geometryValid, GL_GEOMETRY_SHADER);
-		glAttachShader(handle, geometry);
 	}
 
-	glLinkProgram(handle);
+	GL_CALL(glLinkProgram(handle));
 	checkLink(handle);
 
 	deleteShader(vert, vertValid);
@@ -27,12 +26,12 @@ GLShader::GLShader(const char* vertexPath, const char* fragmentPath, const char*
 
 GLShader::~GLShader()
 {
-	glDeleteProgram(handle);
+	GL_CALL(glDeleteProgram(handle));
 }
 
 void GLShader::bind()
 {
-	glUseProgram(handle);
+	GL_CALL(glUseProgram(handle));
 }
 
 void GLShader::unbind()
@@ -72,13 +71,13 @@ GLuint GLShader::compile(const char* path, bool& isValid, GLenum type)
 	const char* shader_code = code.c_str();
 
 	GLuint shader = glCreateShader(type);
-	glShaderSource(shader, 1, &shader_code, NULL);
-	glCompileShader(shader);
+	GL_CALL(glShaderSource(shader, 1, &shader_code, NULL));
+	GL_CALL(glCompileShader(shader));
 
 	isValid = checkCompile(shader);
 	if (isValid)
 	{
-		glAttachShader(handle, shader);
+		GL_CALL(glAttachShader(handle, shader));
 	}
 
 	return shader;
@@ -88,7 +87,7 @@ void GLShader::deleteShader(GLuint shader, bool isValid)
 {
 	if (isValid)
 	{
-		glDeleteShader(shader);
+		GL_CALL(glDeleteShader(shader));
 	}
 }
 
@@ -97,7 +96,7 @@ bool GLShader::checkLink(GLuint shader)
 	GLint success;
 	GLchar info_log[1024];
 
-	glGetProgramiv(shader, GL_LINK_STATUS, &success);
+	GL_CALL(glGetProgramiv(shader, GL_LINK_STATUS, &success));
 	if (!success)
 	{
 		glGetProgramInfoLog(shader, 1024, NULL, info_log);
@@ -131,7 +130,9 @@ namespace Mina::GL
 
 inline int GetLocation(Shader& shader, const char* const name)
 {
-	return glGetUniformLocation(shader.getHandle(), name);
+	int ret = -1;
+	GL_CALL(ret =glGetUniformLocation(shader.getHandle(), name));
+	return ret;
 }
 
 void GlUniformInt(Shader& shader, const char* const name, int value)
@@ -161,7 +162,7 @@ void GlUniformVec2(Shader& shader, const char* const name, float x, float y)
 }
 void GlUniformVec3(Shader& shader, const char* const name, const glm::vec3& value)
 {
-	glUniform3fv(GetLocation(shader, name), 1, glm::value_ptr(value));
+	glUniform3fv(GetLocation(shader, name), 1, &value[0]);
 }
 void GlUniformVec3(Shader& shader, const char* const name, float x, float y, float z)
 {
