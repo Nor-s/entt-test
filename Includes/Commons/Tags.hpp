@@ -8,14 +8,13 @@ namespace Mina::Tag
 using namespace entt::literals;
 
 // Object Tags
-using StaticModel = entt::tag<"StaticModel"_hs>;
-using DynamicModel = entt::tag<"DynamicModel"_hs>;
+using StaticMesh = entt::tag<"StaticMesh"_hs>;
+using DynamicMesh = entt::tag<"DynamicMesh"_hs>;
 using Bone = entt::tag<"Bone"_hs>;
+using Player = entt::tag<"Player"_hs>;
 
 // Editor Tags
-using Tooltip = entt::tag<"tooltip"_hs>;
 using UIContext = entt::tag<"uicontext"_hs>;
-using HUD = entt::tag<"hud"_hs>;
 
 // Event Tags
 using Inputs = entt::tag<"inputs"_hs>;

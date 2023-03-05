@@ -5,10 +5,12 @@
 
 namespace Mina
 {
+
 struct Transform
 {
 	glm::mat4 mat;
 };
+
 }	 // namespace Mina
 
 #endif

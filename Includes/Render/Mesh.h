@@ -48,7 +48,7 @@ protected:
 		 std::vector<std::unique_ptr<Texture>>&& _textures,
 		 Material& _mat);
 	Mesh(std::vector<Vertex>&& _vertices, std::vector<uint32_t>&& _indices);
-	Mesh(std::vector<Vertex>&& _vertices);
+	explicit Mesh(std::vector<Vertex>&& _vertices);
 
 public:
 	virtual ~Mesh() = default;
@@ -58,10 +58,10 @@ public:
 		return handle;
 	}
 
-	const Material& getMaterial() const;
-	const std::vector<Vertex>& getVertices() const;
-	const std::vector<uint32_t>& getIndices() const;
-	const std::vector<std::unique_ptr<Texture>>& getTextures() const;
+	[[nodiscard]] const Material& getMaterial() const;
+	[[nodiscard]] const std::vector<Vertex>& getVertices() const;
+	[[nodiscard]] const std::vector<uint32_t>& getIndices() const;
+	[[nodiscard]] const std::vector<std::unique_ptr<Texture>>& getTextures() const;
 };
 
 }	 // namespace Mina

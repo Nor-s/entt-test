@@ -6,13 +6,35 @@
 namespace Mina
 {
 
-void DrawMesh()
+void AnimationSystem()
 {
+//	registry.view<Skeleton>[] {
+//		update skeleton
+//	}
 }
 
-void RenderSystem()
+void UpdateRenderSystem(entt::registry& registry, class Renderer& renderer )
 {
-	// view . { draw mesh}
+//	renderer.begin();
+//
+//	Image2D.begin();
+//	registry.view<Image2D>[] {
+//
+//	};
+//	Image2D.end()
+//
+//	StaticMesh.bind();
+//	registry.view<StaticMesh>[] {
+//		entity = get;
+//		renderer.addDrawCall(StaticMesh, )
+//			;
+//
+//	DynamicMesh.bind();
+//	registry.view<DynamicMesh>[] (){
+//
+//	};
+//	// view . { draw mesh}
+//	renderer.end();
 }
 
 }	 // namespace Mina
