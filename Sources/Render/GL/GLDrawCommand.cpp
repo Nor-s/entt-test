@@ -29,12 +29,10 @@ void BindTexture(Shader& shader, const std::vector<std::unique_ptr<Texture>>& te
 		textures[i]->bind();
 	}
 }
-
-void GLDrawCommand::drawBasicMesh(Shader& shader, const Mesh& mesh)
-{
-	auto material = mesh.getMaterial();
-	auto textures = mesh.getTextures();
-	auto indices = mesh.getIndices();
+void DrawMesh(Shader& shader, const Mesh& mesh) {
+	const auto&  material = mesh.getMaterial();
+	const auto&  textures = mesh.getTextures();
+	const auto&  indices = mesh.getIndices();
 
 	SetMaterial(shader, material);
 	BindTexture(shader, textures);
@@ -49,13 +47,23 @@ void GLDrawCommand::drawBasicMesh(Shader& shader, const Mesh& mesh)
 		}
 		else
 		{
-			auto vertices = mesh.getVertices();
+			auto& vertices = mesh.getVertices();
 			glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(vertices.size()));
 		}
 		glBindVertexArray(0);
 	}
 
 	glActiveTexture(GL_TEXTURE0);
+}
+
+void GLDrawCommand::drawBasicMesh(Shader& shader, const Mesh& mesh)
+{
+	DrawMesh(shader, mesh);
+}
+
+DrawFunction GLDrawCommand::getDrawBasicFunction()
+{
+	return &DrawMesh;
 }
 
 }	 // namespace Mina::GL

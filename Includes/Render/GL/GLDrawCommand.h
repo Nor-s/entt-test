@@ -9,6 +9,7 @@ namespace Mina::GL
 class GLDrawCommand : public DrawCommand
 {
 	void drawBasicMesh(class Shader& shader, const class Mesh& mesh) override;
+	DrawFunction getDrawBasicFunction() override;
 };
 
 }	 // namespace Mina::GL

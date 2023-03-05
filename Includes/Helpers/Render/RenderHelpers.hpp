@@ -29,7 +29,7 @@ std::unique_ptr<Mesh> createBiPyramid()
 	std::vector<uint32_t> indices{0, 1, 2, 0, 2, 3, 0, 3, 4, 0, 4, 1, 5, 2, 1, 5, 3, 2, 5, 4, 3, 5, 1, 4};
 
 	std::vector<Vertex> vertices;
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < 18; i+=3)
 	{
 		Vertex vert{};
 		vert.position = {position[i], position[i + 1], position[i + 2]};

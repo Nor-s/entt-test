@@ -4,12 +4,16 @@
 namespace Mina
 {
 
-using DrawBasicFunction = void (DrawCommand::*)(class Shader& shader, const class Mesh& mesh);
+using DrawFunction = void (*)(class Shader& shader, const class Mesh& mesh);
 
 class DrawCommand
 {
 	virtual void drawBasicMesh(class Shader& shader, const class Mesh& mesh) = 0;
+	virtual DrawFunction getDrawBasicFunction() = 0;
 };
+
+using DrawBasicFunction = void (DrawCommand::*)(class Shader& shader, const class Mesh& mesh);
+
 
 }	 // namespace Mina
 
