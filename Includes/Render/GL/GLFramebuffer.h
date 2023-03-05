@@ -36,6 +36,7 @@ protected:
 public:
 	~GLFramebuffer();
 
+	void clear() override;
 	void bind() override;
 	void unbind() override;
 	void resize(const MSize& size) override;

@@ -1,7 +1,7 @@
 set(COMMON_SRC Commons/Logger.cpp)
 
 set(EDITOR_SRC Editor/Window.cpp Editor/Platform/GlfwGLWindow.cpp
-        Editor/Editor.cpp)
+        Editor/Editor.cpp Editor/Layers/SceneLayer.cpp)
 
 set(RENDER_SRC
         Render/Camera.cpp
@@ -21,10 +21,14 @@ set(RENDER_SRC
 set(HELPER_SRC Helpers/Resources/ModelImporter.cpp
         Helpers/Resources/ModelExporter.cpp)
 
+set(SYSTEM_SRC
+        Systems/RenderSystem.cpp
+        )
+
 set(EXE_SRC main.cpp App.cpp)
 
 add_executable(Mina ${EXE_SRC} ${EDITOR_SRC} ${HELPER_SRC} ${RENDER_SRC}
-        ${COMMON_SRC})
+        ${COMMON_SRC} ${SYSTEM_SRC})
 if (MSVC)
     target_compile_options(Mina PRIVATE "/utf-8")
 else ()

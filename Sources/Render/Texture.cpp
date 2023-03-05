@@ -6,8 +6,14 @@ Texture::Texture(std::string filepath, const TextureFormat& colorFormat)
 	: path(std::move(filepath)), format(colorFormat)
 {
 }
+
 Texture::Texture() = default;
 Texture::~Texture() = default;
+
+[[nodiscard]] const TextureHandle& Texture::getHandle() const
+{
+	return handle;
+}
 
 [[nodiscard]] const MSize& Texture::getSize() const
 {

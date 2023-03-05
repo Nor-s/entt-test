@@ -1,6 +1,7 @@
 #include "App.h"
 
 #include "Editor/Editor.h"
+#include "Editor/Layers/SceneLayer.h"
 #include "Editor/Platform/GlfwGLWindow.h"
 
 #include "Commons/Logger.h"
@@ -11,6 +12,8 @@
 #include "Render/FramebufferFactory.hpp"
 
 #include "Helpers/Render/RenderHelpers.hpp"
+
+#include "Systems/RenderSystem.h"
 
 namespace Mina
 {
@@ -33,9 +36,6 @@ void App::init()
 	window = std::make_unique<GlfwGLWindow>(WindowContext{500, 500, "Mina"});
 	window->init();
 
-	editor = std::make_unique<Editor>(*window);
-	editor->init();
-
 	FramebufferSpec spec = {
 		MSize{500, 500},
 		{FramebufferTextureFormat ::RGBA8},
@@ -43,6 +43,10 @@ void App::init()
 	};
 
 	scene = std::make_unique<Scene>(registry, std::move(RenderAPI::get().getFramebufferFactory().create(spec)));
+
+	editor = std::make_unique<Editor>(*window);
+	editor->init();
+	editor->addLayer(std::make_unique<SceneLayer>());
 }
 
 void App::loop()
@@ -67,8 +71,9 @@ void App::preRender()
 
 void App::render()
 {
-	// scene->render();
-//	 editor->render();
+	UpdateAnimationSystem(*scene);
+	UpdateRenderSystem(*scene);
+	editor->updateLayers(*scene);
 }
 
 void App::postRender()

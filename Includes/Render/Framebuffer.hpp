@@ -75,6 +75,7 @@ public:
 
 	virtual ~Framebuffer() = default;
 
+	virtual void clear() = 0;
 	virtual void bind() = 0;
 	virtual void unbind() = 0;
 	virtual void resize(const MSize& size) = 0;
@@ -84,19 +85,19 @@ public:
 		return handle;
 	}
 
-	Texture& getColorTexture(int idx)
+	const Texture& getColorTexture(int idx) const
 	{
 		assert(idx < colors.size());
 
 		return *colors[idx];
 	}
 
-	FramebufferHandle& getHandle()
+	const FramebufferHandle& getHandle() const
 	{
 		return handle;
 	}
 
-	FramebufferSpec& getSpec()
+	const FramebufferSpec& getSpec() const
 	{
 		return spec;
 	}

@@ -51,6 +51,7 @@ public:
 		return handle;
 	}
 
+	[[nodiscard]] const TextureHandle& getHandle() const;
 	[[nodiscard]] const MSize& getSize() const;
 	[[nodiscard]] const std::string& getType() const;
 	[[nodiscard]] const std::string& getPath() const;

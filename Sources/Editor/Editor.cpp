@@ -1,4 +1,5 @@
 #include "Editor.h"
+#include "Layer.hpp"
 
 #include "Platform/GlfwGLWindow.h"
 
@@ -135,4 +136,18 @@ void Editor::drawMenuBar()
 		ImGui::EndMenuBar();
 	}
 }
+
+void Editor::addLayer(std::unique_ptr<Layer> layer)
+{
+	layers.emplace_back(std::move(layer));
+}
+
+void Editor::updateLayers(struct Scene& scene)
+{
+	for (auto& layer : layers)
+	{
+		layer->update(scene);
+	}
+}
+
 }	 // namespace Mina

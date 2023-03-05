@@ -6,6 +6,7 @@
 
 namespace Mina
 {
+
 class App : public Singleton<App>
 {
 	friend class Singleton<App>;
@@ -16,7 +17,12 @@ private:
 	std::unique_ptr<class Editor> editor{};
 	std::unique_ptr<class Scene> scene{};
 
+private:
 	App();
+
+	void preRender();
+	void render();
+	void postRender();
 
 public:
 	App(const App&) = delete;
@@ -28,11 +34,13 @@ public:
 	~App();
 
 	void init();
+
+	/**
+	 * @pre init() must be called before this function
+	 */
 	void loop();
-	void preRender();
-	void render();
-	void postRender();
 };
+
 }	 // namespace Mina
 
 #endif	  // MINA_MINA_H

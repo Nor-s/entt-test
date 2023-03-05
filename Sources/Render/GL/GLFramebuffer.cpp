@@ -68,6 +68,11 @@ void GLFramebuffer::init()
 	GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 }
 
+void GLFramebuffer::clear() {
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+}
+
 void GLFramebuffer::bind()
 {
 	GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, handle));
