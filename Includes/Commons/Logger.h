@@ -19,13 +19,13 @@ class Logger : public Singleton<Logger>
 	friend class Singleton<Logger>;
 
 private:
-	std::shared_ptr<spdlog::logger> logger;
+	static std::shared_ptr<spdlog::logger> logger;
 
 	Logger();
 
 public:
 	~Logger() = default;
-	const std::shared_ptr<spdlog::logger>& getLogger() const;
+	[[nodiscard]] const std::shared_ptr<spdlog::logger>& getLogger() const;
 };
 
 }	 // namespace Mina
