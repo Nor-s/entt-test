@@ -12,13 +12,13 @@ class GLFramebuffer : public Framebuffer
 {
 	friend class GLFramebufferFactory;
 
-protected:
-	GLFramebuffer();
+private:
+	bool isValid{true};
 
-	/**
-	 * @pre need bind before call this
-	 */
-	void initColorAttachment(std::vector<std::unique_ptr<Texture>>&& colorTextures) override;
+protected:
+	explicit GLFramebuffer(const FramebufferSpec& spec);
+
+	void init();
 
 	/**
 	 * @pre need bind before call this
@@ -38,6 +38,7 @@ public:
 
 	void bind() override;
 	void unbind() override;
+	void resize(const MSize& size) override;
 };
 
 }	 // namespace Mina::GL

@@ -11,9 +11,10 @@ class App : public Singleton<App>
 	friend class Singleton<App>;
 
 private:
-	std::unique_ptr<class Window> window;
-	std::unique_ptr<class Editor> editor;
 	entt::registry registry{};
+	std::unique_ptr<class Window> window{};
+	std::unique_ptr<class Editor> editor{};
+	std::unique_ptr<class Scene> scene{};
 
 	App();
 
@@ -25,8 +26,6 @@ public:
 	App& operator=(App&&) = delete;
 
 	~App();
-
-	static App& getInstance();
 
 	void init();
 	void loop();

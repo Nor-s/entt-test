@@ -1,6 +1,8 @@
 #ifndef MINA_RENDER_FRAMEBUFFER_HPP
 #define MINA_RENDER_FRAMEBUFFER_HPP
 
+#include <utility>
+
 #include "pch.hpp"
 
 #include "../Commons/Type.hpp"
@@ -33,7 +35,7 @@ struct FramebufferSpec
 	}
 
 	MSize size;
-	uint32_t multiSampleNum{1};
+	int multiSampleNum{1};
 	std::vector<FramebufferTextureFormat> colorAttachments{};
 	DepthFormat depthAttachment{DepthFormat::NONE};
 };
@@ -47,14 +49,10 @@ protected:
 	DepthBufferHandle depth{};
 
 protected:
-	Framebuffer() : spec({{1, 1}, {}})
+	explicit Framebuffer(FramebufferSpec spec)
+		: spec(std::move(spec))
 	{
 	}
-
-	/**
-	 * @pre need bind before call this
-	 */
-	virtual void initColorAttachment(std::vector<std::unique_ptr<Texture>>&& colorTextures) = 0;
 
 	/**
 	 * @pre need bind before call this
@@ -79,6 +77,7 @@ public:
 
 	virtual void bind() = 0;
 	virtual void unbind() = 0;
+	virtual void resize(const MSize& size) = 0;
 
 	operator const FramebufferHandle&() const
 	{
@@ -101,6 +100,12 @@ public:
 	{
 		return spec;
 	}
+
+	[[nodiscard]] const MSize& getSize() const
+	{
+		return spec.size;
+	}
+
 };
 
 }	 // namespace Mina

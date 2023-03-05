@@ -15,9 +15,9 @@ class GLTextureFactory : public TextureFactory
 public:
 	GLTextureFactory();
 	~GLTextureFactory();
-	std::unique_ptr<Texture> create(const MSize& _size, TextureFormat _format, int _multiSample) override;
-	std::unique_ptr<Texture> create(std::string_view _path, TextureFormat _format) override;
-	std::unique_ptr<Texture> create(unsigned char* data, const MSize& _size) override;
+	std::unique_ptr<Texture> create(const MSize& size, TextureFormat format, int multiSample) override;
+	std::unique_ptr<Texture> create(std::string_view path, TextureFormat format) override;
+	std::unique_ptr<Texture> create(unsigned char* data, const MSize& size) override;
 };
 
 }	 // namespace Mina::GL

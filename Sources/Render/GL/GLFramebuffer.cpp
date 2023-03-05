@@ -1,45 +1,104 @@
 #include "Render/GL/GLFramebuffer.h"
+#include "Render/GL/GLTextureFactory.h"
+#include "Render/GL/GLTexture.h"
+
+#include "Commons/Logger.h"
 
 namespace Mina::GL
 {
 
-GLFramebuffer::GLFramebuffer() : Framebuffer()
+DepthBufferHandle CreateDepthBuffer(const MSize& size, DepthFormat format, int multiSampleNum = 1)
 {
-	glGenFramebuffers(1, &handle);
+	DepthBufferHandle depthBuffer;
+
+	glGenRenderbuffers(1, &depthBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+	if (multiSampleNum > 1)
+	{
+		glRenderbufferStorageMultisample(GL_RENDERBUFFER, multiSampleNum, GL_DEPTH_COMPONENT, size.width, size.height);
+	}
+	else
+	{
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, size.width, size.height);
+	}
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	return depthBuffer;
 }
 
-GLFramebuffer::~GLFramebuffer() = default;
+GLFramebuffer::GLFramebuffer(const FramebufferSpec& spec) : Framebuffer(spec)
+{
+}
+
+GLFramebuffer::~GLFramebuffer()
+{
+	MINA_LOG("Deleting framebuffer: {}", handle);
+	if (isValid)
+	{
+		glDeleteFramebuffers(1, &handle);
+		colors.clear();
+		glDeleteRenderbuffers(1, &depth);
+	}
+}
+
+void GLFramebuffer::init()
+{
+	assert(colors.empty());
+
+	GL_CALL(glGenFramebuffers(1, &handle));
+	GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, handle));
+	{
+		GLTextureFactory textureFactory;
+		for (auto& colorFormat : spec.colorAttachments)
+		{
+			addColorAttachment(std::move(textureFactory.create(spec.size, colorFormat, spec.multiSampleNum)));
+		}
+
+		if (spec.depthAttachment != DepthFormat::NONE)
+		{
+			depth = CreateDepthBuffer(spec.size, spec.depthAttachment, spec.multiSampleNum);
+		}
+	}
+
+	if (!checkStatus())
+	{
+		isValid = false;
+		MINA_CRITICAL("Framebuffer is not complete!");
+	}
+	GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+}
 
 void GLFramebuffer::bind()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, handle);
-	glViewport(0, 0, spec.size.width, spec.size.height);
+	GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, handle));
+	GL_CALL(glViewport(0, 0, spec.size.width, spec.size.height));
 }
 
 void GLFramebuffer::unbind()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 }
 
-void GLFramebuffer::initColorAttachment(std::vector<std::unique_ptr<Texture>>&& colorTextures)
+void GLFramebuffer::resize(const MSize& size)
 {
-	assert(colorTextures.size() > 0);
-
-	colors.clear();
-	spec.size = colorTextures[0]->getSize();
-	spec.colorAttachments.clear();
-
-	for (auto& colorTexture : colorTextures)
+	spec.size = size;
+	if (isValid)
 	{
-		addColorAttachment(std::move(colorTexture));
+		GL_CALL(glDeleteFramebuffers(1, &handle));
+		colors.clear();
+		if (spec.depthAttachment != DepthFormat::NONE)
+		{
+			glDeleteRenderbuffers(1, &depth);
+		}
+		isValid = true;
 	}
+	init();
 }
 
 void GLFramebuffer::addColorAttachment(std::unique_ptr<Texture> colorTexture)
 {
-	spec.colorAttachments.push_back(colorTexture->getFormat());
 	GLenum target = colorTexture->getMultiSampleNum() == 1 ? GL_TEXTURE_2D : GL_TEXTURE_2D_MULTISAMPLE;
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colors.size() - 1, target, *colorTexture, 0);
+	GL_CALL(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colors.size(), target, *colorTexture, 0));
 
 	colors.emplace_back(std::move(colorTexture));
 }
@@ -49,7 +108,12 @@ DepthBufferHandle GLFramebuffer::changeDepthAttachment(DepthBufferHandle depthBu
 	DepthBufferHandle old = depth;
 	depth = depthBuffer;
 
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth);
+	GL_CALL(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth));
+
+	if (!checkStatus())
+	{
+		MINA_CRITICAL("Framebuffer is not complete!");
+	}
 
 	return old;
 }

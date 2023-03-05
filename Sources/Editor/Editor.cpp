@@ -9,7 +9,9 @@ Editor::Editor(Window& window) : window{window}
 {
 }
 
-Editor::~Editor() = default;
+Editor::~Editor(){
+	shutdown();
+}
 
 void Editor::init()
 {

@@ -27,8 +27,9 @@ public:
 
 	~RenderAPI();
 
-	class MeshFactory& getMeshFactory() const;
-	class FramebufferFactory& getFramebufferFactory() const;
+	[[nodiscard]] class MeshFactory& getMeshFactory() const;
+	[[nodiscard]] class FramebufferFactory& getFramebufferFactory() const;
+	[[nodiscard]] std::unique_ptr<class Shader> createShader(std::string_view vertPath, std::string_view fragPath);
 };
 
 }	 // namespace Mina

@@ -2,18 +2,24 @@
 #define MINA_HELPERS_MATHHELPER_H
 
 #include "pch.hpp"
+#include "../Commons/Type.hpp"
 
 namespace Mina
 {
 
+inline float Aspect(const MSize& size)
+{
+	return static_cast<float>(size.width) / static_cast<float>(size.height);
+}
+
 inline glm::vec3 AiVecToGlmVec(const aiVector3D& vec)
 {
-	return glm::vec3(vec.x, vec.y, vec.z);
+	return {vec.x, vec.y, vec.z};
 }
 
 inline aiVector3D GlmVecToAiVec(const glm::vec3& vec)
 {
-	return aiVector3D(vec.x, vec.y, vec.z);
+	return {vec.x, vec.y, vec.z};
 }
 
 inline glm::mat4 AiMatToGlmMat(const aiMatrix4x4& from)
@@ -66,12 +72,12 @@ inline aiMatrix4x4 GlmMatToAiMat(const glm::mat4& from)
 
 inline glm::quat AiQuatToGlmQuat(const aiQuaternion& pOrientation)
 {
-	return glm::quat(pOrientation.w, pOrientation.x, pOrientation.y, pOrientation.z);
+	return {pOrientation.w, pOrientation.x, pOrientation.y, pOrientation.z};
 }
 
 inline aiQuaternion GlmQuatToAiQuat(const glm::quat& pOrientation)
 {
-	return aiQuaternion(pOrientation.w, pOrientation.x, pOrientation.y, pOrientation.z);
+	return {pOrientation.w, pOrientation.x, pOrientation.y, pOrientation.z};
 }
 
 // return translate, rotate, scale

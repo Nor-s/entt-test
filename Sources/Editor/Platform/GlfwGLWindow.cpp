@@ -1,5 +1,5 @@
 #include "pch.hpp"
-
+#include "Commons/Logger.h"
 #include "Editor/Platform/GlfwGLWindow.h"
 
 namespace Mina
@@ -8,13 +8,17 @@ GlfwGLWindow::GlfwGLWindow(const WindowContext& context) : Window(context)
 {
 }
 
-GlfwGLWindow::~GlfwGLWindow() = default;
+GlfwGLWindow::~GlfwGLWindow() {
+	glfwDestroyWindow(window);
+	glfwTerminate();
+}
 
 void GlfwGLWindow::init()
 {
+	MINA_LOG("Initializing GLFW window");
 	if (!glfwInit())
 	{
-		throw std::runtime_error("GLFW couldn't be initialized.");
+		MINA_CRITICAL("GLFW couldn't be initialized.");
 	}
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -31,7 +35,7 @@ void GlfwGLWindow::init()
 	if (!window)
 	{
 		glfwTerminate();
-		throw std::runtime_error("GLFW failed to create window");
+		MINA_CRITICAL("GLFW failed to create window");
 	}
 	glfwMakeContextCurrent(window);
 
@@ -39,7 +43,7 @@ void GlfwGLWindow::init()
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
 	{
-		throw std::runtime_error("Failed to initialize GLAD");
+		MINA_CRITICAL("Failed to initialize GLAD");
 	}
 
 	glfwSwapInterval(0);

@@ -1,22 +1,29 @@
 #include "Render/GL/GLTexture.h"
 #include "Render/GL/GLTextureFactory.h"
+#include "Commons/Logger.h"
 
 namespace Mina::GL
 {
+
 GLTextureFactory::GLTextureFactory() = default;
 GLTextureFactory::~GLTextureFactory() = default;
 
-std::unique_ptr<Texture> GLTextureFactory::create(const MSize& _size, TextureFormat _format, int _multiSample)
+std::unique_ptr<Texture> GLTextureFactory::create(const MSize& size, TextureFormat format, int multiSample)
 {
-	return std::unique_ptr<Texture>(new GLTexture(_size, _format, _multiSample));
+	MINA_LOG("Creating texture: size: {}, {}", size.width, size.height);
+	return std::unique_ptr<Texture>(new GLTexture(size, format, multiSample));
 }
-std::unique_ptr<Texture> GLTextureFactory::create(std::string_view _path, TextureFormat _format)
+
+std::unique_ptr<Texture> GLTextureFactory::create(std::string_view path, TextureFormat format)
 {
-	return std::unique_ptr<Texture>(new GLTexture(std::string(_path.data()), _format));
+	MINA_LOG("Creating texture: path: {}", path);
+	return std::unique_ptr<Texture>(new GLTexture(std::string(path.data()), format));
 }
-std::unique_ptr<Texture> GLTextureFactory::create(unsigned char* data, const MSize& _size)
+
+std::unique_ptr<Texture> GLTextureFactory::create(unsigned char* data, const MSize& size)
 {
-	return std::unique_ptr<Texture>(new GLTexture(data, _size));
+	MINA_LOG("Creating texture: data: {}, {}", size.width, size.height);
+	return std::unique_ptr<Texture>(new GLTexture(data, size));
 }
 
 }	 // namespace Mina::GL

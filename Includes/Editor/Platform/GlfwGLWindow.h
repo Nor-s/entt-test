@@ -19,7 +19,7 @@ public:
 
 	GlfwGLWindow(const WindowContext& c);
 
-	virtual ~GlfwGLWindow();
+	~GlfwGLWindow();
 
 	inline void* getHandle() const override;
 	inline void init() override;

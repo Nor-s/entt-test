@@ -5,21 +5,25 @@
 
 #include "Commons/Logger.h"
 
+#include "Render/Scene.h"
+#include "Render/RenderAPI.h"
+#include "Render/Framebuffer.hpp"
+#include "Render/FramebufferFactory.hpp"
+
 #include "Helpers/Render/RenderHelpers.hpp"
 
 namespace Mina
 {
 
-App::App() : registry{}
+App::App() : registry{}, scene{nullptr}
 {
 }
 
-App::~App() = default;
-
-App& App::getInstance()
-{
-	static App instance{};
-	return instance;
+App::~App() {
+	MINA_LOG("Destroying Mina");
+	window.reset(nullptr);
+	editor.reset(nullptr);
+	scene.reset(nullptr);
 }
 
 void App::init()
@@ -31,6 +35,14 @@ void App::init()
 
 	editor = std::make_unique<Editor>(*window);
 	editor->init();
+
+	FramebufferSpec spec = {
+		MSize{500, 500},
+		{FramebufferTextureFormat ::RGBA8},
+		DepthFormat::Depth
+	};
+
+	scene = std::make_unique<Scene>(registry, std::move(RenderAPI::get().getFramebufferFactory().create(spec)));
 }
 
 void App::loop()
@@ -56,7 +68,7 @@ void App::preRender()
 void App::render()
 {
 	// scene->render();
-	// editor->render();
+//	 editor->render();
 }
 
 void App::postRender()

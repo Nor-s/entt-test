@@ -19,7 +19,7 @@ public:
 
 	~Singleton() = default;
 
-	static const T& get()
+	static T& get()
 	{
 		static T instance;
 		return instance;

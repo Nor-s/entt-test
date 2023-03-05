@@ -63,15 +63,15 @@ inline void SetTexParameteri(TextureFormat format)
 	switch (format)
 	{
 		case TextureFormat::RED_INTEGER:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+			GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
 			break;
 
 		default:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+			GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+			GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+			GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR));
 			break;
 	}
 }
@@ -97,9 +97,9 @@ GLTexture::GLTexture(const MSize& textureSize, TextureFormat colorFormat, int sa
 	multiSample = sampleNum;
 	target = GetTextureTarget(multiSample);
 
-	glGenTextures(1, &handle);
+	GL_CALL(glGenTextures(1, &handle));
 
-	glBindTexture(target, handle);
+	GL_CALL(glBindTexture(target, handle));
 	setTexImage2D(nullptr);
 	glBindTexture(target, 0);
 }
@@ -137,8 +137,8 @@ GLTexture::GLTexture(unsigned char* data, const MSize& textureSize)
 {
 	MINA_LOG("Texture Load Memory");
 
-	glGenTextures(1, &handle);
-	glBindTexture(GL_TEXTURE_2D, handle);
+	GL_CALL(glGenTextures(1, &handle));
+	GL_CALL(glBindTexture(GL_TEXTURE_2D, handle));
 
 	unsigned char* imageData = nullptr;
 	int channels{};
@@ -170,14 +170,13 @@ void GLTexture::setTexImage2D(unsigned char* data)
 
 	if (multiSample > 1)
 	{
-		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, multiSample, iFormat, size.width, size.height, GL_TRUE);
+		GL_CALL(glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, multiSample, iFormat, size.width, size.height, GL_TRUE));
 	}
 	else
 	{
 		SetTexParameteri(format);
-		glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(iFormat), size.width, size.height, 0, eFormat, dataType,
-					 data);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(iFormat), size.width, size.height, 0, eFormat, dataType, data));
+		GL_CALL(glGenerateMipmap(GL_TEXTURE_2D));
 	}
 }
 
