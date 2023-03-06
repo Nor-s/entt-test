@@ -14,7 +14,6 @@ class RenderAPI : public Singleton<RenderAPI>
 private:
 	std::unique_ptr<class MeshFactory> meshFactory{};
 	std::unique_ptr<class FramebufferFactory> framebufferFactory{};
-	//	std::unique_ptr<class Render> render{};
 
 	RenderAPI();
 
