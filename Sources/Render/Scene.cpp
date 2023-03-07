@@ -19,7 +19,6 @@ Scene::Scene(entt::registry& registry, std::unique_ptr<Framebuffer> framebuffer)
 
 	camera = std::make_unique<Camera>(ViewParams(), ProjectionParams());
 	camera->setAspectRatio(Aspect(this->framebuffer->getSize()));
-	selectedEntity = entt::null;
 }
 
 Scene::~Scene() = default;
@@ -54,11 +53,6 @@ const Framebuffer& Scene::getFramebuffer() const
 const Camera& Scene::getCamera() const
 {
 	return *camera;
-}
-
-entt::entity Scene::getSelectedEntity() const
-{
-	return selectedEntity;
 }
 
 }	 // namespace Mina

@@ -13,7 +13,6 @@ private:
 	entt::registry& registry;
 	std::unique_ptr<class Framebuffer> framebuffer;
 	std::unique_ptr<class Camera> camera;
-	entt::entity selectedEntity;
 
 public:
 	Scene(entt::registry& registry, std::unique_ptr<class Framebuffer> framebuffer);
@@ -27,7 +26,6 @@ public:
 	[[nodiscard]] entt::registry& getRegistry() const;
 	[[nodiscard]] const class Framebuffer& getFramebuffer() const;
 	[[nodiscard]] const class Camera& getCamera() const;
-	[[nodiscard]] entt::entity getSelectedEntity() const;
 };
 
 }	 // namespace Mina

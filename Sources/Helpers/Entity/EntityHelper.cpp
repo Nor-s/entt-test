@@ -1,13 +1,20 @@
 //
-// Created by No on 2023-03-05.
+// Created by No on 2023-03-07.
 //
+#include "Helpers/Entity/EntityHelper.h"
 
-#include "Helpers/Render/RenderHelper.h"
+#include "Render/Mesh.h"
+#include "Render/RenderAPI.h"
+#include "Render/MeshFactory.hpp"
+
+#include "Components/Render/MeshComponent.hpp"
+#include "Components/TransformComponent.hpp"
+#include "Components/State.hpp"
 
 namespace Mina
 {
 
-std::unique_ptr<Mesh> CreateBiPyramid()
+entt::entity CreateBiPyramid(entt::registry& registry)
 {
 	float position[] = {
 		0.0f,  1.0f,  0.0f,		// 0 (상단 꼭지점)
@@ -36,7 +43,15 @@ std::unique_ptr<Mesh> CreateBiPyramid()
 		vertices.push_back(vert);
 	}
 
-	return RenderAPI::get().getMeshFactory().create(std::move(vertices), std::move(indices));
+	auto mesh = RenderAPI::get().getMeshFactory().create(std::move(vertices), std::move(indices));
+
+	entt::entity entity = registry.create();
+
+	registry.emplace<State::Running>(entity);
+	registry.emplace<TransformComponent>(entity);
+	registry.emplace<StaticMeshComponent>(entity, std::move(mesh));
+
+	return entity;
 }
 
 }	 // namespace Mina

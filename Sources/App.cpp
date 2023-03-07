@@ -11,7 +11,7 @@
 #include "Render/Framebuffer.hpp"
 #include "Render/FramebufferFactory.hpp"
 
-#include "Helpers/Render/RenderHelper.h"
+#include "Helpers/Entity/EntityHelper.h"
 
 #include "Systems/RenderSystem.h"
 
@@ -24,9 +24,10 @@ App::App() : registry{}, scene{nullptr}
 
 App::~App() {
 	MINA_LOG("Destroying Mina");
-	window.reset(nullptr);
-	editor.reset(nullptr);
+	registry.clear();
 	scene.reset(nullptr);
+	editor.reset(nullptr);
+	window.reset(nullptr);
 }
 
 void App::init()
@@ -43,7 +44,7 @@ void App::init()
 	};
 
 	scene = std::make_unique<Scene>(registry, std::move(RenderAPI::get().getFramebufferFactory().create(spec)));
-
+	CreateBiPyramid(scene->getRegistry());
 	editor = std::make_unique<Editor>(*window);
 	editor->init();
 	editor->addLayer(std::make_unique<SceneLayer>());

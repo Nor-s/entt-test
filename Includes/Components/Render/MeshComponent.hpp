@@ -7,7 +7,13 @@
 namespace Mina
 {
 
-struct MeshComponent
+
+struct StaticMeshComponent
+{
+	std::unique_ptr<Mesh> mesh;
+};
+
+struct DynamicMeshComponent
 {
 	std::unique_ptr<Mesh> mesh;
 };

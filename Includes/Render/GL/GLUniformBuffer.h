@@ -10,10 +10,9 @@
 
 namespace Mina::GL {
 
-template<typename T>
-class GLUniformBuffer : public UniformBuffer<T> {
+class GLUniformBuffer : public UniformBuffer{
 private:
-	int location{};
+	int bindingPoint{};
 public:
 	GLUniformBuffer() = delete;
 	GLUniformBuffer(const GLUniformBuffer&) = delete;
@@ -22,34 +21,30 @@ public:
 	GLUniformBuffer& operator=(const GLUniformBuffer&) = delete;
 	GLUniformBuffer& operator=(GLUniformBuffer&&) = delete;
 
-	GLUniformBuffer(std::initializer_list<ShaderHandle> shaderList, const std::string& name, int location)
-		: location(location)
+	GLUniformBuffer(std::initializer_list<ShaderHandle> shaderList, const std::string& name, size_t size, int bindingPoint)
+		: bindingPoint(bindingPoint)
 	{
 		std::vector<ShaderHandle> shaderHandles{shaderList};
 		for(auto& shaderHandle : shaderHandles)
 		{
-			auto uniformBlockId = glGetUniformBlockIndex(shaderHandle, name.c_str());
-			glUniformBlockBinding(shaderHandle, uniformBlockId, this->location);
+			auto uniformBlockIndex = glGetUniformBlockIndex(shaderHandle, name.c_str());
+			glUniformBlockBinding(shaderHandle, uniformBlockIndex, this->bindingPoint);
 		}
 
 		glGenBuffers(1, &this->handle);
 		glBindBuffer(GL_UNIFORM_BUFFER, this->handle);
-		glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+		glBufferData(GL_UNIFORM_BUFFER, size, NULL, GL_STATIC_DRAW);
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-		glBindBufferRange(GL_UNIFORM_BUFFER, 0, this->handle, 0, 2 * sizeof(glm::mat4));
+		glBindBufferRange(GL_UNIFORM_BUFFER, 0, this->handle, 0, size);
 	}
 
 	~GLUniformBuffer() {
-		glDeleteBuffers(1, &handle);
+		glDeleteBuffers(1, &this->handle);
 	}
 
-	/**
-	 * @param value: must raw type (ex. glm::value_ptr(projection))
-	 */
-	template<typename V>
-	void setUniform(uint32_t offset, size_t size, V value) {
-		glBindBuffer(GL_UNIFORM_BUFFER, handle);
+	void setUniform(uint32_t offset, size_t size, const void* value) {
+		glBindBuffer(GL_UNIFORM_BUFFER, this->handle);
 		glBufferSubData(GL_UNIFORM_BUFFER, offset, size, value);
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	}

@@ -1,7 +1,7 @@
 #ifndef MINA_COMPONENTS_COMPONENTS_H
 #define MINA_COMPONENTS_COMPONENTS_H
 
-#include "Components/Transform.hpp"
+#include "Components/TransformComponent.hpp"
 
 namespace Mina::Components
 {

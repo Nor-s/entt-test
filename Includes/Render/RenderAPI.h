@@ -2,7 +2,8 @@
 #define MINA_RENDER_RENDERAPI_H
 
 #include "../pch.hpp"
-#include "Commons/Singleton.hpp"
+#include "../Commons/Singleton.hpp"
+#include "../Commons/Type.hpp"
 
 namespace Mina
 {
@@ -29,6 +30,10 @@ public:
 	[[nodiscard]] class MeshFactory& getMeshFactory() const;
 	[[nodiscard]] class FramebufferFactory& getFramebufferFactory() const;
 	[[nodiscard]] std::unique_ptr<class Shader> createShader(std::string_view vertPath, std::string_view fragPath);
+	std::unique_ptr<class UniformBuffer> createUniformBuffer(std::initializer_list<ShaderHandle> shaderList,
+															 const std::string& name,
+															 size_t size,
+															 int bindingPoint);
 };
 
 }	 // namespace Mina

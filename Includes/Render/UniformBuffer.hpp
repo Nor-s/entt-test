@@ -11,7 +11,6 @@
 namespace Mina
 {
 
-template<typename T>
 class UniformBuffer
 {
 protected:
@@ -28,7 +27,7 @@ public:
 
 	virtual ~UniformBuffer() = default;
 
-//	void setUniform(const std::string& name, const void* data, uint32_t size);
+	virtual void setUniform(uint32_t offset, size_t size, const void* value) = 0;
 };
 
 }	 // namespace Mina

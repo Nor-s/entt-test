@@ -19,7 +19,7 @@ set(RENDER_SRC
         Render/GL/GLTextureFactory.cpp Render/Shader.cpp)
 
 set(HELPER_SRC Helpers/Resources/ModelImporter.cpp
-        Helpers/Resources/ModelExporter.cpp Helpers/Render/RenderHelper.cpp)
+         Helpers/Entity/EntityHelper.cpp)
 
 set(SYSTEM_SRC
         Systems/RenderSystem.cpp

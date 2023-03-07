@@ -9,7 +9,9 @@
 #include "Render/GL/GLDrawCommand.h"
 #include "Render/Shader.h"
 
-#include "Helpers/Render/RenderHelper.h"
+#include "Components/Render/MeshComponent.hpp"
+#include "Components/TransformComponent.hpp"
+#include "Components/State.hpp"
 
 namespace Mina
 {
@@ -21,14 +23,24 @@ void UpdateAnimationSystem(Scene& scene)
 }
 void UpdateRenderSystem(Scene& scene)
 {
-	auto biPyramid = CreateBiPyramid();
-	auto shader = std::move(RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert", "Resources/Shaders/glsl/PhongLight.frag"));
+	static auto defaultStaticMeshShader = std::move(RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
+																		   "Resources/Shaders/glsl/PhongLight.frag"));
 	scene.begin();
 	GL::GLDrawCommand drawCommand;
 
-//	shader->bind();
-//	drawCommand.drawBasicMesh(*shader, *biPyramid);
-//	shader->unbind();
+	auto& registry = scene.getRegistry();
+	auto staticMeshView = registry.view<State::Running, StaticMeshComponent, TransformComponent>();
+
+	defaultStaticMeshShader->bind();
+	{
+		for (auto entity : staticMeshView)
+		{
+			// auto& transform = staticMeshView.get<TransformComponent>(entity);
+			auto& mesh = staticMeshView.get<StaticMeshComponent>(entity);
+			drawCommand.drawBasicMesh(*defaultStaticMeshShader, *mesh.mesh);
+		}
+	}
+	defaultStaticMeshShader->unbind();
 
 	scene.end();
 }

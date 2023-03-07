@@ -6,7 +6,7 @@
 namespace Mina
 {
 
-struct Transform
+struct TransformComponent
 {
 	glm::mat4 mat;
 };
