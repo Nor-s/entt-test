@@ -23,10 +23,10 @@ void UpdateAnimationSystem(Scene& scene)
 }
 void UpdateRenderSystem(Scene& scene)
 {
-	static auto defaultStaticMeshShader = std::move(RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
-																		   "Resources/Shaders/glsl/PhongLight.frag"));
-	static auto defaultDynamicMeshShader = std::move(RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
-																				  "Resources/Shaders/glsl/PhongLight.frag"));
+	static auto defaultStaticMeshShader = RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
+																		"Resources/Shaders/glsl/PhongLight.frag");
+	static auto defaultDynamicMeshShader = RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
+																		 "Resources/Shaders/glsl/PhongLight.frag");
 	scene.begin();
 	GL::GLDrawCommand drawCommand;
 
@@ -46,6 +46,5 @@ void UpdateRenderSystem(Scene& scene)
 
 	scene.end();
 }
-
 
 };	  // namespace Mina

@@ -51,7 +51,7 @@ void GLFramebuffer::init()
 		GLTextureFactory textureFactory;
 		for (auto& colorFormat : spec.colorAttachments)
 		{
-			addColorAttachment(std::move(textureFactory.create(spec.size, colorFormat, spec.multiSampleNum)));
+			addColorAttachment(textureFactory.create(spec.size, colorFormat, spec.multiSampleNum));
 		}
 
 		if (spec.depthAttachment != DepthFormat::NONE)
@@ -68,7 +68,8 @@ void GLFramebuffer::init()
 	GL_CALL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 }
 
-void GLFramebuffer::clear() {
+void GLFramebuffer::clear()
+{
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }

@@ -10,7 +10,8 @@ Editor::Editor(Window& window) : window{window}
 {
 }
 
-Editor::~Editor(){
+Editor::~Editor()
+{
 	shutdown();
 }
 
@@ -142,7 +143,7 @@ void Editor::addLayer(std::unique_ptr<Layer> layer)
 	layers.emplace_back(std::move(layer));
 }
 
-void Editor::updateLayers(struct Scene& scene)
+void Editor::updateLayers(Scene& scene)
 {
 	for (auto& layer : layers)
 	{

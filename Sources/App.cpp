@@ -22,7 +22,8 @@ App::App() : registry{}, scene{nullptr}
 {
 }
 
-App::~App() {
+App::~App()
+{
 	MINA_LOG("Destroying Mina");
 	registry.clear();
 	scene.reset(nullptr);
@@ -37,13 +38,9 @@ void App::init()
 	window = std::make_unique<GlfwGLWindow>(WindowContext{500, 500, "Mina"});
 	window->init();
 
-	FramebufferSpec spec = {
-		MSize{500, 500},
-		{FramebufferTextureFormat ::RGBA8},
-		DepthFormat::Depth
-	};
+	FramebufferSpec spec = {MSize{500, 500}, {FramebufferTextureFormat ::RGBA8}, DepthFormat::Depth};
 
-	scene = std::make_unique<Scene>(registry, std::move(RenderAPI::get().getFramebufferFactory().create(spec)));
+	scene = std::make_unique<Scene>(registry, RenderAPI::get().getFramebufferFactory().create(spec));
 	CreateBiPyramid(scene->getRegistry());
 	editor = std::make_unique<Editor>(*window);
 	editor->init();
