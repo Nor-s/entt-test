@@ -86,10 +86,12 @@ void GlfwGLWindow::setExtends(window_size width, window_size height)
 	context.width = width;
 	context.height = height;
 }
+
 std::pair<window_size, window_size> GlfwGLWindow::getFramebufferSize()
 {
 	std::pair<window_size, window_size> size{0, 0};
 	glfwGetFramebufferSize(window, &size.first, &size.second);
 	return size;
 }
+
 }	 // namespace Mina

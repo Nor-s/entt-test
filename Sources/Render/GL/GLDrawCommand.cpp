@@ -31,13 +31,15 @@ void BindTexture(Shader& shader, const std::vector<std::unique_ptr<Texture>>& te
 	}
 }
 
-void DrawMesh(Shader& shader, const Mesh& mesh) {
+void DrawMesh(Shader& shader, const Mesh& mesh, const glm::mat4& worldTransform) {
 	const auto&  material = mesh.getMaterial();
 	const auto&  textures = mesh.getTextures();
 	const auto&  indices = mesh.getIndices();
 
 	SetMaterial(shader, material);
 	BindTexture(shader, textures);
+	GL_CALL(GlUniformMat4(shader, "world", worldTransform));
+
 
 	// draw mesh
 	{
@@ -58,9 +60,9 @@ void DrawMesh(Shader& shader, const Mesh& mesh) {
 	glActiveTexture(GL_TEXTURE0);
 }
 
-void GLDrawCommand::drawBasicMesh(Shader& shader, const Mesh& mesh)
+void GLDrawCommand::drawBasicMesh(Shader& shader, const Mesh& mesh , const glm::mat4& worldTransform)
 {
-	DrawMesh(shader, mesh);
+	DrawMesh(shader, mesh, worldTransform);
 }
 
 DrawFunction GLDrawCommand::getDrawBasicFunction()

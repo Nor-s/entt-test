@@ -25,6 +25,8 @@ void UpdateRenderSystem(Scene& scene)
 {
 	static auto defaultStaticMeshShader = std::move(RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
 																		   "Resources/Shaders/glsl/PhongLight.frag"));
+	static auto defaultDynamicMeshShader = std::move(RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
+																				  "Resources/Shaders/glsl/PhongLight.frag"));
 	scene.begin();
 	GL::GLDrawCommand drawCommand;
 
@@ -35,9 +37,9 @@ void UpdateRenderSystem(Scene& scene)
 	{
 		for (auto entity : staticMeshView)
 		{
-			// auto& transform = staticMeshView.get<TransformComponent>(entity);
+			const auto& transform = staticMeshView.get<TransformComponent>(entity);
 			auto& mesh = staticMeshView.get<StaticMeshComponent>(entity);
-			drawCommand.drawBasicMesh(*defaultStaticMeshShader, *mesh.mesh);
+			drawCommand.drawBasicMesh(*defaultStaticMeshShader, *mesh.mesh, transform.mat);
 		}
 	}
 	defaultStaticMeshShader->unbind();
