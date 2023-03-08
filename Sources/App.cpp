@@ -2,7 +2,6 @@
 
 #include "Editor/Editor.h"
 #include "Editor/Layers/SceneLayer.h"
-#include "Editor/Platform/GlfwGLWindow.h"
 
 #include "Commons/Logger.h"
 
@@ -10,6 +9,7 @@
 #include "Render/RenderAPI.h"
 #include "Render/Framebuffer.hpp"
 #include "Render/FramebufferFactory.hpp"
+#include "Render/Window/GlfwGLWindow.h"
 
 #include "Helpers/Entity/EntityHelper.h"
 
@@ -35,15 +35,20 @@ void App::init()
 {
 	MINA_LOG("Initializing Mina");
 
+#ifdef USE_OPENGL
 	window = std::make_unique<GlfwGLWindow>(WindowContext{500, 500, "Mina"});
 	window->init();
+#else
+#endif
 
 	FramebufferSpec spec = {MSize{500, 500}, {FramebufferTextureFormat ::RGBA8}, DepthFormat::Depth};
 
 	scene = std::make_unique<Scene>(registry, RenderAPI::get().getFramebufferFactory().create(spec));
 	CreateBiPyramid(scene->getRegistry());
+
 	editor = std::make_unique<Editor>(*window);
 	editor->init();
+
 	editor->addLayer(std::make_unique<SceneLayer>());
 }
 

@@ -170,12 +170,14 @@ void GLTexture::setTexImage2D(unsigned char* data)
 
 	if (multiSample > 1)
 	{
-		GL_CALL(glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, multiSample, iFormat, size.width, size.height, GL_TRUE));
+		GL_CALL(
+			glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, multiSample, iFormat, size.width, size.height, GL_TRUE));
 	}
 	else
 	{
 		SetTexParameteri(format);
-		GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(iFormat), size.width, size.height, 0, eFormat, dataType, data));
+		GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(iFormat), size.width, size.height, 0, eFormat,
+							 dataType, data));
 		GL_CALL(glGenerateMipmap(GL_TEXTURE_2D));
 	}
 }

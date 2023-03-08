@@ -1,7 +1,7 @@
 #include "Editor.h"
 #include "Layer.hpp"
 
-#include "Platform/GlfwGLWindow.h"
+#include "Render/Window/GlfwGLWindow.h"
 
 namespace Mina
 {

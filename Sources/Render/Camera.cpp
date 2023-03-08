@@ -15,7 +15,6 @@ Camera::Camera(const ViewParams& viewParams, const ProjectionParams& projectionP
 
 Camera::~Camera() = default;
 
-
 const glm::mat4& Camera::getViewMatrix() const
 {
 	return view;
@@ -43,7 +42,8 @@ void Camera::updateView()
 
 void Camera::updateProjection()
 {
-	projection = glm::perspective(projectionParams.zoom, projectionParams.aspect, projectionParams.zNear, projectionParams.zFar);
+	projection =
+		glm::perspective(projectionParams.zoom, projectionParams.aspect, projectionParams.zNear, projectionParams.zFar);
 }
 
 void Camera::setAspectRatio(float aspectRatio)

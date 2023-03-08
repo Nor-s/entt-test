@@ -1,6 +1,6 @@
 #include "pch.hpp"
 #include "Commons/Logger.h"
-#include "Editor/Platform/GlfwGLWindow.h"
+#include "Render/Window/GlfwGLWindow.h"
 
 namespace Mina
 {
@@ -8,7 +8,8 @@ GlfwGLWindow::GlfwGLWindow(const WindowContext& context) : Window(context)
 {
 }
 
-GlfwGLWindow::~GlfwGLWindow() {
+GlfwGLWindow::~GlfwGLWindow()
+{
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }

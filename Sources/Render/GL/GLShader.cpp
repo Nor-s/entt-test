@@ -131,7 +131,7 @@ namespace Mina::GL
 inline int GetLocation(Shader& shader, const char* const name)
 {
 	int ret = -1;
-	GL_CALL(ret =glGetUniformLocation(shader.getHandle(), name));
+	GL_CALL(ret = glGetUniformLocation(shader.getHandle(), name));
 	return ret;
 }
 

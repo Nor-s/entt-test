@@ -8,11 +8,14 @@
 #include "pch.hpp"
 #include "Render/UniformBuffer.hpp"
 
-namespace Mina::GL {
+namespace Mina::GL
+{
 
-class GLUniformBuffer : public UniformBuffer{
+class GLUniformBuffer : public UniformBuffer
+{
 private:
 	int bindingPoint{};
+
 public:
 	GLUniformBuffer() = delete;
 	GLUniformBuffer(const GLUniformBuffer&) = delete;
@@ -21,11 +24,14 @@ public:
 	GLUniformBuffer& operator=(const GLUniformBuffer&) = delete;
 	GLUniformBuffer& operator=(GLUniformBuffer&&) = delete;
 
-	GLUniformBuffer(std::initializer_list<ShaderHandle> shaderList, const std::string& name, size_t size, int bindingPoint)
+	GLUniformBuffer(std::initializer_list<ShaderHandle> shaderList,
+					const std::string& name,
+					size_t size,
+					int bindingPoint)
 		: bindingPoint(bindingPoint)
 	{
 		std::vector<ShaderHandle> shaderHandles{shaderList};
-		for(auto& shaderHandle : shaderHandles)
+		for (auto& shaderHandle : shaderHandles)
 		{
 			auto uniformBlockIndex = glGetUniformBlockIndex(shaderHandle, name.c_str());
 			glUniformBlockBinding(shaderHandle, uniformBlockIndex, this->bindingPoint);
@@ -39,17 +45,19 @@ public:
 		glBindBufferRange(GL_UNIFORM_BUFFER, 0, this->handle, 0, size);
 	}
 
-	~GLUniformBuffer() {
+	~GLUniformBuffer()
+	{
 		glDeleteBuffers(1, &this->handle);
 	}
 
-	void setUniform(uint32_t offset, size_t size, const void* value) {
+	void setUniform(uint32_t offset, size_t size, const void* value)
+	{
 		glBindBuffer(GL_UNIFORM_BUFFER, this->handle);
 		glBufferSubData(GL_UNIFORM_BUFFER, offset, size, value);
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	}
 };
 
-}
+}	 // namespace Mina::GL
 
 #endif	  // MINA_GLUNIFORMBUFFER_H

@@ -1,5 +1,5 @@
-#ifndef MINA_EDITOR_WINDOW_H
-#define MINA_EDITOR_WINDOW_H
+#ifndef MINA_RENDER_WINDOW_H
+#define MINA_RENDER_WINDOW_H
 
 #include "../pch.hpp"
 
@@ -27,7 +27,7 @@ public:
 	Window& operator=(const Window&) = delete;
 	Window& operator=(Window&&) = delete;
 
-	explicit Window(WindowContext  c);
+	explicit Window(WindowContext c);
 
 	virtual ~Window();
 

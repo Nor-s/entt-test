@@ -39,13 +39,13 @@ void GLMesh::initBuffer()
 	GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, buffers.VBO));
 
 	GL_CALL(glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(vertices.size() * sizeof(Vertex)), &vertices[0],
-				 GL_STATIC_DRAW));
+						 GL_STATIC_DRAW));
 	if (!indices.empty())
 	{
 		GL_CALL(glGenBuffers(1, &buffers.EBO));
 		GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers.EBO));
 		GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indices.size() * sizeof(unsigned int)),
-					 &indices[0], GL_STATIC_DRAW));
+							 &indices[0], GL_STATIC_DRAW));
 	}
 
 	glEnableVertexAttribArray(0);

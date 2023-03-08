@@ -9,7 +9,7 @@ std::unique_ptr<Framebuffer> GLFramebufferFactory::create(const FramebufferSpec&
 {
 	MINA_LOG("Creating framebuffer with spec: size: {}, {}", spec.size.width, spec.size.height);
 
-	auto framebuffer =  std::unique_ptr<GLFramebuffer>(new GLFramebuffer(spec));
+	auto framebuffer = std::unique_ptr<GLFramebuffer>(new GLFramebuffer(spec));
 	framebuffer->init();
 
 	return framebuffer;

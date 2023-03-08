@@ -7,4 +7,4 @@ namespace Mina
 {
 Shader::Shader() = default;
 Shader::~Shader() = default;
-}
+}	 // namespace Mina
