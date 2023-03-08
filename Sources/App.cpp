@@ -22,14 +22,7 @@ App::App() : registry{}, scene{nullptr}
 {
 }
 
-App::~App()
-{
-	MINA_LOG("Destroying Mina");
-	registry.clear();
-	scene.reset(nullptr);
-	editor.reset(nullptr);
-	window.reset(nullptr);
-}
+App::~App() = default;
 
 void App::init()
 {
@@ -64,6 +57,13 @@ void App::loop()
 		}
 		postRender();
 	}
+
+	MINA_LOG("End main loop");
+
+	registry.clear();
+	scene.reset(nullptr);
+	editor.reset(nullptr);
+	window.reset(nullptr);
 }
 
 void App::preRender()

@@ -3,9 +3,14 @@
 
 #include "Render/Window/GlfwGLWindow.h"
 
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
+#include <imgui/icons/icons.h>
+#include <imgui/ImGuizmo.h>
+
 namespace Mina
 {
-
 Editor::Editor(Window& window) : window{window}
 {
 }

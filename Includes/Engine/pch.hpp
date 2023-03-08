@@ -37,13 +37,6 @@
 // glfw
 #include <GLFW/glfw3.h>
 
-// imgui
-// #include <ImGuiFileDialog/ImGuiFileDialog.h>
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_opengl3.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/icons/icons.h>
-#include <imgui/ImGuizmo.h>
 #ifdef _WIN32
 #pragma warning(disable : 4005)
 #include <Windows.h>

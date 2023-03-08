@@ -17,10 +17,9 @@ namespace Mina
 class Logger : public Singleton<Logger>
 {
 	friend class Singleton<Logger>;
-
-private:
 	static std::shared_ptr<spdlog::logger> logger;
 
+private:
 	Logger();
 
 public:

@@ -1,7 +1,7 @@
 #ifndef MINA_MINA_H
 #define MINA_MINA_H
 
-#include "pch.hpp"
+#include "Engine/pch.hpp"
 #include "Commons/Singleton.hpp"
 
 namespace Mina

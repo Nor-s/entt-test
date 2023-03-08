@@ -1,13 +1,14 @@
 #ifndef MINA_EDITOR_EDITOR_H
 #define MINA_EDITOR_EDITOR_H
 
-#include "../pch.hpp"
+#include "Engine/pch.hpp"
 
 namespace Mina
 {
 class Editor
 {
 	using Layers = std::vector<std::unique_ptr<class Layer>>;
+
 private:
 	const class Window& window;
 	Layers layers;

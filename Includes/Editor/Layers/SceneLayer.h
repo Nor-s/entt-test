@@ -5,7 +5,10 @@
 #ifndef MINA_SCENELAYERS_H
 #define MINA_SCENELAYERS_H
 
-#include "pch.hpp"
+#include "Engine/pch.hpp"
+
+#include <imgui/imgui.h>
+
 #include "../Editor/Layer.hpp"
 
 namespace Mina
@@ -20,7 +23,6 @@ public:
 	void processMouseEvent(ImGuiWindowFlags& winodwFlags);
 	void update(class Scene& scene) override;
 };
-
 
 }	 // namespace Mina
 

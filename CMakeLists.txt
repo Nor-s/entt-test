@@ -43,9 +43,8 @@ include_directories(
   ${CMAKE_HOME_DIRECTORY}
   ${CMAKE_HOME_DIRECTORY}/Sources
   ${CMAKE_HOME_DIRECTORY}/Includes/
-  ${CMAKE_HOME_DIRECTORY}/Includes/Helpers/
-  ${CMAKE_HOME_DIRECTORY}/Includes/Editor/
-  ${CMAKE_HOME_DIRECTORY}/Includes/Components/
+  ${CMAKE_HOME_DIRECTORY}/Includes/Editor
+  ${CMAKE_HOME_DIRECTORY}/Includes/Engine
   ${CMAKE_HOME_DIRECTORY}/Externals/
   ${CMAKE_HOME_DIRECTORY}/Externals/entt/single_include
   ${CMAKE_HOME_DIRECTORY}/Externals/entt/
