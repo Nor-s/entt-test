@@ -22,26 +22,32 @@ void UpdateAnimationSystem(Scene& scene)
 	//		update skeleton
 	//	}
 }
+
+template<typename T>
+void DrawComponents(entt::registry& registry) {
+	static GL::GLDrawCommand drawCommand;
+	const auto& view = registry.view<State::Running, T, TransformComponent>();
+	auto& shader = RenderAPI::get().getShaderManager().getShader<T>();
+
+	shader.bind();
+	{
+		for (auto entity : view)
+		{
+			const auto& transform = view.get<TransformComponent>(entity);
+			auto& mesh = view.get<T>(entity);
+			drawCommand.drawBasicMesh(shader, *mesh.mesh, transform.mat);
+		}
+	}
+	shader.unbind();
+
+}
+
 void UpdateRenderSystem(Scene& scene)
 {
 	scene.begin();
-	GL::GLDrawCommand drawCommand;
-
 	auto& registry = scene.getRegistry();
-	auto staticMeshView = registry.view<State::Running, StaticMeshComponent, TransformComponent>();
-	auto& defaultStaticMeshShader = RenderAPI::get().getShaderManager().getShader<StaticMeshComponent>();
-
-	defaultStaticMeshShader.bind();
-	{
-		for (auto entity : staticMeshView)
-		{
-			const auto& transform = staticMeshView.get<TransformComponent>(entity);
-			auto& mesh = staticMeshView.get<StaticMeshComponent>(entity);
-			drawCommand.drawBasicMesh(defaultStaticMeshShader, *mesh.mesh, transform.mat);
-		}
-	}
-	defaultStaticMeshShader.unbind();
-
+	DrawComponents<StaticMeshComponent>(registry);
+	DrawComponents<DynamicMeshComponent>(registry);
 	scene.end();
 }
 
