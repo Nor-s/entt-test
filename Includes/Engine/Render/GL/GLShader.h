@@ -7,6 +7,9 @@ namespace Mina::GL
 {
 class GLShader : public Shader
 {
+private:
+	ShaderHandle handle;
+
 public:
 	GLShader() = delete;
 
@@ -15,6 +18,8 @@ public:
 
 	void bind() override;
 	void unbind() override;
+	[[nodiscard]] const ShaderHandle& getHandle() const override;
+
 
 private:
 	GLuint compile(const char* path, bool& isValid, GLenum type);

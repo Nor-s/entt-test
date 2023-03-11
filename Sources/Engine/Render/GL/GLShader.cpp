@@ -39,6 +39,11 @@ void GLShader::unbind()
 	glUseProgram(0);
 }
 
+const ShaderHandle& GLShader::getHandle() const
+{
+	return handle;
+}
+
 GLuint GLShader::compile(const char* path, bool& isValid, GLenum type)
 {
 	if (path == nullptr)

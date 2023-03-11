@@ -22,8 +22,10 @@ App::App() : registry{}, scene{nullptr}
 {
 }
 
-App::~App() = default;
-
+App::~App()
+{
+	window.reset(nullptr);
+}
 void App::init()
 {
 	MINA_LOG("Initializing Mina");
@@ -63,7 +65,7 @@ void App::loop()
 	registry.clear();
 	scene.reset(nullptr);
 	editor.reset(nullptr);
-	window.reset(nullptr);
+
 }
 
 void App::preRender()
