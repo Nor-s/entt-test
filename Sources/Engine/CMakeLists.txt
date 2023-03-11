@@ -14,7 +14,7 @@ set(RENDER_SRC
     Render/GL/GLShader.cpp
     Render/GL/GLTexture.cpp
     Render/GL/GLTextureFactory.cpp
-    Render/Shader.cpp)
+    Render/Shader.cpp Render/GL/GLUniformBuffer.cpp)
 
 set(COMMON_SRC Commons/Logger.cpp)
 

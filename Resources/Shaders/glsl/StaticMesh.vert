@@ -8,11 +8,11 @@ layout (location = 4) in vec3 bitangent;
 layout (location = 5) in ivec4 boneIds; // because MAX_BONE_INFLUENCE == 4
 layout (location = 6) in vec4 weights;
 
-//layout (std140) uniform Matrices
-//{
-//    mat4 projection;
-//    mat4 view;
-//};
+layout (std140) uniform ViewProj
+{
+    mat4 view;
+    mat4 projection;
+};
 uniform mat4 model;
 flat out int boneId;
 

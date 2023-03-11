@@ -15,6 +15,7 @@ class RenderAPI : public Singleton<RenderAPI>
 private:
 	std::unique_ptr<class MeshFactory> meshFactory{};
 	std::unique_ptr<class FramebufferFactory> framebufferFactory{};
+	std::unique_ptr<class ShaderManager> shaderManager{};
 
 	RenderAPI();
 
@@ -29,11 +30,7 @@ public:
 
 	[[nodiscard]] class MeshFactory& getMeshFactory() const;
 	[[nodiscard]] class FramebufferFactory& getFramebufferFactory() const;
-	[[nodiscard]] std::unique_ptr<class Shader> createShader(std::string_view vertPath, std::string_view fragPath);
-	std::unique_ptr<class UniformBuffer> createUniformBuffer(std::initializer_list<ShaderHandle> shaderList,
-															 const std::string& name,
-															 size_t size,
-															 int bindingPoint);
+	[[nodiscard]] class ShaderManager& getShaderManager() const;
 };
 
 }	 // namespace Mina

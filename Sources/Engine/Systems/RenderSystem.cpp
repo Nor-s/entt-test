@@ -8,6 +8,7 @@
 #include "Render/DrawCommand.hpp"
 #include "Render/GL/GLDrawCommand.h"
 #include "Render/Shader.h"
+#include "Render/ShaderManager.h"
 
 #include "Components/Render/MeshComponent.hpp"
 #include "Components/TransformComponent.hpp"
@@ -23,26 +24,23 @@ void UpdateAnimationSystem(Scene& scene)
 }
 void UpdateRenderSystem(Scene& scene)
 {
-	static auto defaultStaticMeshShader = RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
-																		"Resources/Shaders/glsl/PhongLight.frag");
-	static auto defaultDynamicMeshShader = RenderAPI::get().createShader("Resources/Shaders/glsl/StaticMesh.vert",
-																		 "Resources/Shaders/glsl/PhongLight.frag");
 	scene.begin();
 	GL::GLDrawCommand drawCommand;
 
 	auto& registry = scene.getRegistry();
 	auto staticMeshView = registry.view<State::Running, StaticMeshComponent, TransformComponent>();
+	auto& defaultStaticMeshShader = RenderAPI::get().getShaderManager().getShader<StaticMeshComponent>();
 
-	defaultStaticMeshShader->bind();
+	defaultStaticMeshShader.bind();
 	{
 		for (auto entity : staticMeshView)
 		{
 			const auto& transform = staticMeshView.get<TransformComponent>(entity);
 			auto& mesh = staticMeshView.get<StaticMeshComponent>(entity);
-			drawCommand.drawBasicMesh(*defaultStaticMeshShader, *mesh.mesh, transform.mat);
+			drawCommand.drawBasicMesh(defaultStaticMeshShader, *mesh.mesh, transform.mat);
 		}
 	}
-	defaultStaticMeshShader->unbind();
+	defaultStaticMeshShader.unbind();
 
 	scene.end();
 }

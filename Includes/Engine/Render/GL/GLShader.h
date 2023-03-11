@@ -13,6 +13,12 @@ private:
 public:
 	GLShader() = delete;
 
+	GLShader(const GLShader&) = delete;
+	GLShader(GLShader&&) = delete;
+
+	GLShader& operator=(const GLShader&) = delete;
+	GLShader& operator=(GLShader&&) = delete;
+
 	GLShader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 	~GLShader();
 

@@ -3,6 +3,8 @@
 
 #define USE_OPENGL
 
+#include <cstdint>
+
 namespace Mina
 {
 using time_t = double;
@@ -14,6 +16,7 @@ using FramebufferHandle = unsigned int;
 using DepthBufferHandle = unsigned int;
 using TextureHandle = unsigned int;
 using MeshHandle = unsigned int;
+using UniformBufferHandle = unsigned int;
 
 #else
 
@@ -22,6 +25,8 @@ using FramebufferHandle = unsigned int;
 using DepthBufferHandle = unsigned int;
 using TextureHandle = unsigned int;
 using MeshHandle = unsigned int;
+using UniformBufferHandle = unsigned int;
+
 
 #endif	  // USE_OPENGL
 

@@ -8,13 +8,14 @@
 #include "pch.hpp"
 #include "Commons/Type.hpp"
 
+
 namespace Mina
 {
 
 class UniformBuffer
 {
 protected:
-	uint32_t handle{};
+	UniformBufferHandle handle{};
 
 public:
 	UniformBuffer() = default;
@@ -27,7 +28,9 @@ public:
 
 	virtual ~UniformBuffer() = default;
 
-	virtual void setUniform(uint32_t offset, size_t size, const void* value) = 0;
+	[[maybe_unused]] virtual void bindShader(const ShaderHandle& shaderHandle, std::string_view name) const = 0;
+	virtual void setUniform(size_t offset, size_t size, const void* value) = 0;
+
 };
 
 }	 // namespace Mina
