@@ -2,7 +2,7 @@
 // Created by No on 2023-03-11.
 //
 
-#include "Render/GL/GLUniformBuffer.h"
+#include "Engine/Render/GL/GLUniformBuffer.h"
 
 namespace Mina::GL
 {

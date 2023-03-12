@@ -1,8 +1,8 @@
 #ifndef MINA_COMMONS_LOGGER_H
 #define MINA_COMMONS_LOGGER_H
 
-#include "pch.hpp"
-#include "Singleton.hpp"
+#include "../pch.hpp"
+#include "../Core/Singleton.hpp"
 
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #define SPDLOG_DEBUG_ON

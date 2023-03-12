@@ -1,7 +1,7 @@
 #ifndef MINA_SYSTEMS_RENDERSYSTEMS_H
 #define MINA_SYSTEMS_RENDERSYSTEMS_H
 
-#include "pch.hpp"
+#include "../pch.hpp"
 
 namespace Mina
 {

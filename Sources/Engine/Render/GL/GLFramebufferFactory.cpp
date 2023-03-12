@@ -1,6 +1,6 @@
-#include "Render/GL/GLFramebuffer.h"
-#include "Render/GL/GLFramebufferFactory.h"
-#include "Commons/Logger.h"
+#include "Engine/Render/GL/GLFramebuffer.h"
+#include "Engine/Render/GL/GLFramebufferFactory.h"
+#include "Engine/Commons/Logger.h"
 
 namespace Mina::GL
 {

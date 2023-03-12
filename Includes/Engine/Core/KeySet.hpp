@@ -1,9 +1,9 @@
-#ifndef MINA_COMPONENTS_KEYSET_HPP
-#define MINA_COMPONENTS_KEYSET_HPP
+#ifndef MINA_KEYSET_HPP
+#define MINA_KEYSET_HPP
 
-#include "../pch.hpp"
+#include "entt-test/Includes/Engine/pch.hpp"
 
-#include "../Commons/Type.hpp"
+#include "entt-test/Includes/Engine/Commons/Type.hpp"
 
 namespace Mina
 {

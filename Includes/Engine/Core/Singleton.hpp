@@ -1,5 +1,5 @@
-#ifndef MINA_COMMONS_SINGLETON_H
-#define MINA_COMMONS_SINGLETON_H
+#ifndef MINA_SINGLETON_H
+#define MINA_SINGLETON_H
 
 namespace Mina
 {

@@ -1,7 +1,7 @@
-#include "Editor.h"
-#include "Layer.hpp"
+#include "Editor/Editor.h"
+#include "Editor/Layer.hpp"
 
-#include "Render/Window/GlfwGLWindow.h"
+#include "Engine/Render/Window/GlfwGLWindow.h"
 
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>

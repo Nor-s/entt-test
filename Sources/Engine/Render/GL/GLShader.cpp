@@ -1,5 +1,5 @@
-#include "Render/GL/GLShader.h"
-#include "Commons/Logger.h"
+#include "Engine/Render/GL/GLShader.h"
+#include "Engine/Commons/Logger.h"
 
 namespace Mina::GL
 {

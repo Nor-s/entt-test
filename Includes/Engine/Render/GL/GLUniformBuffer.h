@@ -5,8 +5,8 @@
 #ifndef MINA_GLUNIFORMBUFFER_H
 #define MINA_GLUNIFORMBUFFER_H
 
-#include "pch.hpp"
-#include "Render/UniformBuffer.hpp"
+#include "../../pch.hpp"
+#include "../UniformBuffer.hpp"
 
 namespace Mina::GL
 {

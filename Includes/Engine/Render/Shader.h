@@ -2,7 +2,7 @@
 #define MINA_RENDER_SHADER_HPP
 
 #include "../Commons/Type.hpp"
-#include "pch.hpp"
+#include "../pch.hpp"
 
 namespace Mina
 {

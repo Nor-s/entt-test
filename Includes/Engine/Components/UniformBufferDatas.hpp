@@ -5,7 +5,7 @@
 #ifndef MINA_UNIFORMBUFFERDATAS_HPP
 #define MINA_UNIFORMBUFFERDATAS_HPP
 
-#include "pch.hpp"
+#include "../pch.hpp"
 
 namespace Mina
 {

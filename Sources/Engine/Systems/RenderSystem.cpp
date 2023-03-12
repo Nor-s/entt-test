@@ -1,18 +1,16 @@
 //
 // Created by No on 2023-03-05.
 //
-#include "Systems/RenderSystem.h"
-
-#include "Render/RenderAPI.h"
-#include "Render/Scene.h"
-#include "Render/DrawCommand.hpp"
-#include "Render/GL/GLDrawCommand.h"
-#include "Render/Shader.h"
-#include "Render/ShaderManager.h"
-
-#include "Components/Render/MeshComponent.hpp"
-#include "Components/TransformComponent.hpp"
-#include "Components/State.hpp"
+#include "Engine/Systems/RenderSystem.h"
+#include "Engine/Render/RenderAPI.h"
+#include "Engine/Render/Scene.h"
+#include "Engine/Render/DrawCommand.hpp"
+#include "Engine/Render/GL/GLDrawCommand.h"
+#include "Engine/Render/Shader.h"
+#include "Engine/Render/ShaderManager.h"
+#include "Engine/Components/Render/MeshComponent.hpp"
+#include "Engine/Components/TransformComponent.hpp"
+#include "Engine/Components/State.hpp"
 
 namespace Mina
 {

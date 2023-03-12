@@ -1,6 +1,6 @@
-#include "Render/GL/GLTexture.h"
-#include "Render/GL/GLTextureFactory.h"
-#include "Commons/Logger.h"
+#include "Engine/Render/GL/GLTexture.h"
+#include "Engine/Render/GL/GLTextureFactory.h"
+#include "Engine/Commons/Logger.h"
 
 namespace Mina::GL
 {

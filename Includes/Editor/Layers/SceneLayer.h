@@ -9,7 +9,7 @@
 
 #include <imgui/imgui.h>
 
-#include "../Editor/Layer.hpp"
+#include "Editor/Layer.hpp"
 
 namespace Mina
 {

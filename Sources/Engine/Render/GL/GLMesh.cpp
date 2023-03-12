@@ -1,8 +1,8 @@
-#include "pch.hpp"
-#include "Render/GL/GLShader.h"
-#include "Render/GL/GLMesh.h"
+#include "Engine/pch.hpp"
+#include "Engine/Render/GL/GLShader.h"
+#include "Engine/Render/GL/GLMesh.h"
 
-#include "Commons/Logger.h"
+#include "Engine/Commons/Logger.h"
 
 namespace Mina::GL
 {

@@ -43,14 +43,6 @@ target_link_libraries(
 
 target_include_directories(
   MinaEngine
-  PUBLIC ./
-         ../
-         ${CMAKE_HOME_DIRECTORY}/**
-         ${CMAKE_HOME_DIRECTORY}/Sources
-         ${CMAKE_HOME_DIRECTORY}/Includes/Engine/**
-         ${CMAKE_HOME_DIRECTORY}/Externals/
-         ${CMAKE_HOME_DIRECTORY}/Externals/entt/single_include
-         ${CMAKE_HOME_DIRECTORY}/Externals/entt/
-         ${CMAKE_HOME_DIRECTORY}/Externals/glm/
-         ${CMAKE_HOME_DIRECTORY}/Externals/stb
-         ${CMAKE_HOME_DIRECTORY}/Externals/assimp)
+  PUBLIC
+         ${CMAKE_HOME_DIRECTORY}/Includes/**
+         ${CMAKE_HOME_DIRECTORY}/Externals/**)

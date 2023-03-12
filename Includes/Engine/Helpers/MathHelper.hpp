@@ -1,7 +1,7 @@
 #ifndef MINA_HELPERS_MATHHELPER_H
 #define MINA_HELPERS_MATHHELPER_H
 
-#include "pch.hpp"
+#include "../pch.hpp"
 #include "../Commons/Type.hpp"
 
 namespace Mina

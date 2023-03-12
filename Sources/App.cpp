@@ -3,21 +3,21 @@
 #include "Editor/Editor.h"
 #include "Editor/Layers/SceneLayer.h"
 
-#include "Commons/Logger.h"
+#include "Engine/Commons/Logger.h"
 
-#include "Render/Scene.h"
-#include "Render/RenderAPI.h"
-#include "Render/Framebuffer.hpp"
-#include "Render/FramebufferFactory.hpp"
-#include "Render/ShaderManager.h"
-#include "Render/Window/GlfwGLWindow.h"
+#include "Engine/Render/Scene.h"
+#include "Engine/Render/RenderAPI.h"
+#include "Engine/Render/Framebuffer.hpp"
+#include "Engine/Render/FramebufferFactory.hpp"
+#include "Engine/Render/ShaderManager.h"
+#include "Engine/Render/Window/GlfwGLWindow.h"
 
-#include "Helpers/Entity/EntityHelper.h"
+#include "Engine/Helpers/Entity/EntityHelper.h"
 
-#include "Systems/RenderSystem.h"
+#include "Engine/Systems/RenderSystem.h"
 
-#include "Components/Render/MeshComponent.hpp"
-#include "Components/UniformBufferDatas.hpp"
+#include "Engine/Components/Render/MeshComponent.hpp"
+#include "Engine/Components/UniformBufferDatas.hpp"
 
 namespace Mina
 {

@@ -5,8 +5,8 @@
 #ifndef MINA_TEXTURE_H
 #define MINA_TEXTURE_H
 
-#include "pch.hpp"
-#include "Commons/Type.hpp"
+#include "../pch.hpp"
+#include "../Commons/Type.hpp"
 
 namespace Mina
 {

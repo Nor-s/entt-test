@@ -5,7 +5,7 @@
 #ifndef MINA_CAMERA_H
 #define MINA_CAMERA_H
 
-#include "pch.hpp"
+#include "../pch.hpp"
 
 namespace Mina
 {

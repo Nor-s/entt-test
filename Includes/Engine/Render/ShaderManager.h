@@ -5,7 +5,7 @@
 #ifndef MINA_SHADERMANAGER_H
 #define MINA_SHADERMANAGER_H
 
-#include "pch.hpp"
+#include "../pch.hpp"
 #include "Shader.h"
 #include "UniformBuffer.hpp"
 
@@ -74,6 +74,7 @@ public:
 	/**
 	 *  @tparam T  is struct for gpu data
 	 *  @tparam Ts Components/Render/ component types
+	 *  @pre setUniformBuffer<T> must be called before this function
 	 */
 	template <typename T, typename... Ts>
 	void bindUniformBuffer(std::string_view name)

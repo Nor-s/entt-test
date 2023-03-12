@@ -5,8 +5,8 @@
 #ifndef MINA_UNIFORMBUFFER_HPP
 #define MINA_UNIFORMBUFFER_HPP
 
-#include "pch.hpp"
-#include "Commons/Type.hpp"
+#include "../pch.hpp"
+#include "../Commons/Type.hpp"
 
 
 namespace Mina

@@ -1,8 +1,8 @@
 //
 // Created by Nor-s on 2023/02/27.
 //
-#include "Render/GL/GLTexture.h"
-#include "Commons/Logger.h"
+#include "Engine/Render/GL/GLTexture.h"
+#include "Engine/Commons/Logger.h"
 
 namespace Mina::GL
 {

@@ -1,8 +1,8 @@
 #ifndef MINA_RENDER_SCENE_H
 #define MINA_RENDER_SCENE_H
 
-#include "pch.hpp"
-#include "Commons/Type.hpp"
+#include "../pch.hpp"
+#include "../Commons/Type.hpp"
 
 namespace Mina
 {

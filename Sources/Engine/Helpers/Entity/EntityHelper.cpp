@@ -1,15 +1,15 @@
 //
 // Created by No on 2023-03-07.
 //
-#include "Helpers/Entity/EntityHelper.h"
+#include "Engine/Helpers/Entity/EntityHelper.h"
 
-#include "Render/Mesh.h"
-#include "Render/RenderAPI.h"
-#include "Render/MeshFactory.hpp"
+#include "Engine/Render/Mesh.h"
+#include "Engine/Render/RenderAPI.h"
+#include "Engine/Render/MeshFactory.hpp"
 
-#include "Components/Render/MeshComponent.hpp"
-#include "Components/TransformComponent.hpp"
-#include "Components/State.hpp"
+#include "Engine/Components/Render/MeshComponent.hpp"
+#include "Engine/Components/TransformComponent.hpp"
+#include "Engine/Components/State.hpp"
 
 namespace Mina
 {

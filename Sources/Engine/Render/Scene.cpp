@@ -1,12 +1,12 @@
 //
 // Created by No on 2023-03-04.
 //
-#include "Render/Scene.h"
-#include "Render/Framebuffer.hpp"
-#include "Render/Camera.h"
+#include "Engine/Render/Scene.h"
+#include "Engine/Render/Framebuffer.hpp"
+#include "Engine/Render/Camera.h"
 
-#include "Helpers/MathHelper.hpp"
-#include "Commons/Logger.h"
+#include "Engine/Helpers/MathHelper.hpp"
+#include "Engine/Commons/Logger.h"
 
 namespace Mina
 {

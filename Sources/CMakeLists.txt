@@ -13,9 +13,6 @@ else()
 endif()
 target_link_libraries(Mina MinaEngine imgui)
 
-target_include_directories(
-  Mina PUBLIC ./ ../ ${CMAKE_HOME_DIRECTORY}/Includes/Editor/**)
-
 #https://stackoverflow.com/questions/34799916/copy-file-from-source-directory-to-binary-directory-using-cmake
 add_custom_command(
         TARGET Mina POST_BUILD

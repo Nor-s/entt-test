@@ -1,7 +1,7 @@
 //
 // Created by No on 2023-03-04.
 //
-#include "Render/Camera.h"
+#include "Engine/Render/Camera.h"
 
 namespace Mina
 {

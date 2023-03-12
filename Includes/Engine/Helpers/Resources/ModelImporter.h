@@ -1,7 +1,7 @@
 #ifndef MINA_HELPERS_RESOURCES_MODELIMPORTER_H
 #define MINA_HELPERS_RESOURCES_MODELIMPORTER_H
 
-#include "pch.hpp"
+#include "Engine/pch.hpp"
 
 namespace Mina
 {

@@ -1,7 +1,7 @@
 #ifndef MINA_COMPONENTS_RENDER_MESH_H
 #define MINA_COMPONENTS_RENDER_MESH_H
 
-#include "pch.hpp"
+#include "../pch.hpp"
 #include "../Commons/Constants.hpp"
 #include "../Commons/Type.hpp"
 #include "Texture.h"

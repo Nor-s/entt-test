@@ -3,10 +3,10 @@
 //
 
 #include "Editor/Layers/SceneLayer.h"
-#include "Render/Scene.h"
-#include "Render/Framebuffer.hpp"
+#include "Engine/Render/Scene.h"
+#include "Engine/Render/Framebuffer.hpp"
 
-#include "Commons/Logger.h"
+#include "Engine/Commons/Logger.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include <imgui/imgui_internal.h>
