@@ -21,8 +21,9 @@ void UpdateAnimationSystem(Scene& scene)
 	//	}
 }
 
-template<typename T>
-void DrawComponents(entt::registry& registry) {
+template <typename T>
+void DrawComponents(entt::registry& registry)
+{
 	static GL::GLDrawCommand drawCommand;
 	const auto& view = registry.view<State::Running, T, TransformComponent>();
 	auto& shader = RenderAPI::get().getShaderManager().getShader<T>();
@@ -31,13 +32,12 @@ void DrawComponents(entt::registry& registry) {
 	{
 		for (auto entity : view)
 		{
-			const auto& transform = view.get<TransformComponent>(entity);
-			auto& mesh = view.get<T>(entity);
+			const auto& transform = view.template get<TransformComponent>(entity);
+			auto& mesh = view.template get<T>(entity);
 			drawCommand.drawBasicMesh(shader, *mesh.mesh, transform.mat);
 		}
 	}
 	shader.unbind();
-
 }
 
 void UpdateRenderSystem(Scene& scene)
