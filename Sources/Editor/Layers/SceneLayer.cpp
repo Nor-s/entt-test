@@ -6,6 +6,7 @@
 #include "Engine/Render/Scene.h"
 #include "Engine/Render/Framebuffer.hpp"
 
+
 #include "Engine/Commons/Logger.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
@@ -48,6 +49,7 @@ void DrawScene(const Framebuffer& framebuffer, const ImVec2& size)
 	if (static_cast<float>(framebufferSize.width) != size.x || static_cast<float>(framebufferSize.height) != size.y)
 	{
 		// todo:: send scene.resize message
+		CommandExecutor::get().deferExecute<FramebufferResizeCommand>(const_cast<Framebuffer&>(framebuffer), MSize{static_cast<int>(size.x), static_cast<int>(size.y)});
 	}
 }
 

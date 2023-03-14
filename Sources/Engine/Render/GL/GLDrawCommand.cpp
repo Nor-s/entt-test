@@ -3,7 +3,6 @@
 #include "Engine/Render/Mesh.h"
 
 #include "Engine/Render/GL/GLShader.h"
-#include "Engine/Render/GL/GLMesh.h"
 #include "Engine/Commons/Logger.h"
 
 namespace Mina::GL

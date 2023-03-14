@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <tuple>
+#include <chrono>
 
 // Entt
 #include <entt/entt.hpp>

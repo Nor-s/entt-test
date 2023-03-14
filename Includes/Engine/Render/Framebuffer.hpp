@@ -5,6 +5,7 @@
 
 #include "../pch.hpp"
 
+#include "../Core/Command.hpp"
 #include "../Commons/Type.hpp"
 #include "Mesh.h"
 #include "Texture.h"
@@ -107,6 +108,23 @@ public:
 		return spec.size;
 	}
 
+};
+
+
+class FramebufferResizeCommand : public Command
+{
+private:
+	Framebuffer& framebuffer;
+	MSize size;
+public:
+	FramebufferResizeCommand(Framebuffer& framebuffer, const MSize& size)
+		: framebuffer(framebuffer), size(size)
+	{
+	}
+	void execute() override
+	{
+		framebuffer.resize(size);
+	}
 };
 
 }	 // namespace Mina

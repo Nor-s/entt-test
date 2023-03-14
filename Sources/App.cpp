@@ -18,6 +18,7 @@
 
 #include "Engine/Components/Render/MeshComponent.hpp"
 #include "Engine/Components/UniformBufferDatas.hpp"
+#include "Engine/Core/Command.hpp"
 
 namespace Mina
 {
@@ -100,6 +101,7 @@ void App::postRender()
 {
 	editor->postRender();
 	window->swapBuffers();
+	CommandExecutor::get().executeAll();
 }
 
 }	 // namespace Mina
